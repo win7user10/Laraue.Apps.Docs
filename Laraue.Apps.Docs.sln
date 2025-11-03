@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laraue.Apps.Docs.ApiHost", "Laraue.Apps.Docs.ApiHost\Laraue.Apps.Docs.ApiHost.csproj", "{A7B6EF73-A12A-496F-8955-4336D7A405FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laraue.Apps.Docs.ApiHost", "src\Laraue.Apps.Docs.ApiHost\Laraue.Apps.Docs.ApiHost.csproj", "{4B87CF63-4A79-41B7-85DD-2659E95C1EC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +8,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A7B6EF73-A12A-496F-8955-4336D7A405FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7B6EF73-A12A-496F-8955-4336D7A405FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7B6EF73-A12A-496F-8955-4336D7A405FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7B6EF73-A12A-496F-8955-4336D7A405FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B87CF63-4A79-41B7-85DD-2659E95C1EC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B87CF63-4A79-41B7-85DD-2659E95C1EC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B87CF63-4A79-41B7-85DD-2659E95C1EC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B87CF63-4A79-41B7-85DD-2659E95C1EC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
