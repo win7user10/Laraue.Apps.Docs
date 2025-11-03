@@ -1,4 +1,3 @@
-using Laraue.Apps.Docs;
 using Laraue.Apps.Docs.ApiHost;
 using Laraue.Apps.Docs.ApiHost.docTypes;
 using Laraue.CmsBackend;
