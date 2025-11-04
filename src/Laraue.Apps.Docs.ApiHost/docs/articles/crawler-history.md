@@ -11,7 +11,7 @@ After some time, I changed jobs and programming language to C# with the ASP.NET 
 ## First Concept
 I decided to investigate whether it was possible to open web pages in a window and capture the selector of an element the user hovered over or clicked on. To test this theory, I created a minimal API that requested the entire page content of a specified URL. The application frontend requested the page entered by the user, and injected a JavaScript script that drew a red rectangle around a hovered element and logged clicks to the console. It worked on simple HTML sites, so I decided to start implementing the project.
 
-## First Implementation and Problems Encountered
+## First Implementation And Problems Encountered
 After many iterations, I created the “web-crawler” project with the following concept:
 
 1. Users should create “crawler schemas” to describe how to extract data from a page using a comfortable interface.
@@ -23,7 +23,7 @@ The main problems I encountered were:
 1. Some pages required JavaScript to be rendered. Allowing JavaScript could break the window where the page was opened. After several iterations, I created web and desktop versions of the application. The web version allowed creating schemas for simple parsers, while the desktop version allowed enabling JavaScript and marking data.
 2. Page loading was often problematic. Many services help with JavaScript rendering and avoid crawler detection, but the project didn’t generate revenue, and using those services wasn't justified. I wrote several proxy rotators, but it was often difficult to determine if a proxy was working and whether a request with a proxy was successful. This was a problem I didn't know how to solve.
 
-## Rethinking the Concept
+## Rethinking The Concept
 Then came a period with no free time, and I almost forgot about “web-crawler” for a year. I remembered it when I started developing another pet project. I still needed a tool to parse sites with JavaScript rendering and good protection against crawlers. I had a new idea: separate page loading from schema definition. Page loading could be difficult – solving captchas, rotating proxies – and it wasn't always possible to create a complete pipeline through the interface. I decided to sacrifice simplicity, abandon the interface, and create a C# library. I envisioned something like this:
 
 ```csharp
