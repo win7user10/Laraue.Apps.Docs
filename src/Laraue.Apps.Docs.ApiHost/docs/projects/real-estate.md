@@ -17,7 +17,23 @@ description: The real project that uses Crawler library
 | License        | MIT                                                                            |
 | Github         | [Laraue.Apps.RealEstate](https://github.com/win7user10/Laraue.Apps.RealEstate) |
 
+## About The Real Estate Market
+About realtor, who tries to earn on the market.
+
+## The user search problem
+Hard to find the best offers.
+
+## The Application Vision
+How it should work and formulas.
+
+## Application Architecture
+Services description
+
+## Challenges
+The main problems encountered.
+
+## Timeline
+The key moments while developing.
+
 The application collects data from russian real estates sites via [Crawler](crawler) library, estimates renovation with
 Ollama, store flats ratings. Provides an API to get aggregated advertisements ranging from estimated renovation, value for money.
-
-The article is being written... Perhaps even now.
