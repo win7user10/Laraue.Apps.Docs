@@ -12,7 +12,7 @@
     </ItemGroup>
     
     <ItemGroup>
-        <Content Include="docs\**\*.md">
+        <Content Include="blog\**\*.md">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
