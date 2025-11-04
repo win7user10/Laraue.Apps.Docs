@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace Laraue.Apps.Docs.ApiHost.Controllers;
+namespace Laraue.Apps.Blog.ApiHost.Controllers;
 
 public class SitemapController(ISitemapGenerator sitemapGenerator, IOptions<SiteOptions> options) : ControllerBase
 {

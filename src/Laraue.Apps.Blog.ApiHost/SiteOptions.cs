@@ -1,4 +1,4 @@
-﻿namespace Laraue.Apps.Docs.ApiHost;
+﻿namespace Laraue.Apps.Blog.ApiHost;
 
 public record SiteOptions
 {

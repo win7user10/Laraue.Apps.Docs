@@ -1,6 +1,6 @@
 ﻿using Laraue.CmsBackend;
 
-namespace Laraue.Apps.Docs.ApiHost.docTypes;
+namespace Laraue.Apps.Blog.ApiHost.docTypes;
 
 public class Project : BaseContentType
 {

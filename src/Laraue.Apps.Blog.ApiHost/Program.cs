@@ -1,5 +1,5 @@
-using Laraue.Apps.Docs.ApiHost;
-using Laraue.Apps.Docs.ApiHost.docTypes;
+using Laraue.Apps.Blog.ApiHost;
+using Laraue.Apps.Blog.ApiHost.docTypes;
 using Laraue.CmsBackend;
 using Laraue.CmsBackend.Extensions;
 using Laraue.CmsBackend.MarkdownTransformation;

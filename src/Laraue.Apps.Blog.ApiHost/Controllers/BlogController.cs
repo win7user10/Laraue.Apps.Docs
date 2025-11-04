@@ -3,7 +3,7 @@ using Laraue.CmsBackend.Contracts;
 using Laraue.Core.DataAccess.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Laraue.Apps.Docs.ApiHost.Controllers;
+namespace Laraue.Apps.Blog.ApiHost.Controllers;
 
 [ApiController]
 [Route("api/blog")]
