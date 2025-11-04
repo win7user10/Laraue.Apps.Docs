@@ -2,9 +2,9 @@
 title: Telegram.NET
 type: project
 tags: [Telegram,.NET,C#]
-description: Allows to write ASP NET like telegram controllers with middlewares and auth.
+description: Allows to write ASP NET like telegram controllers  middlewares and authentication.
 ---
-## Key features
+## Key Features
 | Feature      | Value                                                                       |
 |--------------|-----------------------------------------------------------------------------|
 | Language     | C#                                                                          |
@@ -16,14 +16,14 @@ description: Allows to write ASP NET like telegram controllers with middlewares 
 | Downloads    | ![latest version](https://img.shields.io/nuget/dt/Laraue.Telegram.NET.Core) |
 | Github       | [Laraue.Telegram.NET](https://github.com/win7user10/Laraue.Telegram.NET)    |
 
-## A few more words about Telegram bots
+## A Few More Words About Telegram Bots
 Telegram offers a versatile platform, allowing to build bots for automating tasks, create interactive tools. It provides a
 low-barrier entry point to learn bot development, automate project workflows, and create engaging interfaces for the applications,
 eliminating from the requirement to invent interface blocks, design etc.
 
-## The main problems tried to be solved
-The Telegram API is designed to provide an easy start of bots creating. It doesn't impose to think about the app architecture,
-and sometimes it leads to the apps with a big if-else entrypoint that is hard to maintain. Something like that
+## The Main Problems This Library Tries to Solve
+The Telegram API is designed for easy bot creation but doesn't enforce good architectural patterns.
+This often leads to monolithic entry points filled with `if-else` chains, which are hard to maintain.
 ```
 if (request.Message?.Text == "/Start")
 {
@@ -39,19 +39,20 @@ else if (request.Callback?.Data.StartsWith("/ChangeSettings"))
 }
 // And other commands
 ```
-The library should help the engineer to write the applications without spaghetti code.
+This library aims to help engineers write clean, maintainable Telegram bots by avoiding spaghetti code.
 
-## The library vision
-There is no requirement to invent something new in architecture when all is already invented. Controllers from an MVC pattern
-sounds nice for the case. The library should allow writing ASP Net like controllers for Telegram and mark methods
-with attributes, like `[TelegramMessage("/new")]` when the message was taken or `[TelegramCallbackRoute("/answer")]` when 
-the callback response received. The engineer always sees all defined commands the bot can react that make the development
-and support processes easier.
+## The Library Vision
+There's no need to reinvent the wheel when well-established patterns like MVC already exist.
+The library allows engineers to write ASP.NET-like controllers for Telegram bots using attributes such as:
+- `[TelegramMessageRoute("/new")]` for handling messages
+- `[TelegramCallbackRoute("/answer")]` for handling callbacks
 
-## How to use the library
+This makes it easy to see all available bot commands, improving development and maintenance.
 
-### Controller define
-An engineer should define telegram controllers in the code
+## How to Use the Library
+
+### Controller Definition
+Define Telegram controllers in code:
 ```csharp
 public class MenuController : TelegramController
 {
@@ -69,18 +70,16 @@ public class MenuController : TelegramController
     }
 }
 ```
-The services requested in constructor will be resolved from the Microsoft DI container. The attribute
+Services requested in the constructor are resolved from the Microsoft DI container. The attribute
 `TelegramMessageRoute("/start")` means the user message `"/start"` will be processed by the method above. 
 The parameter `TelegramRequestContext` will contain the object of the request and allows to directly get the `Message` object. 
 
-### The library registration
+### Library Registration
 The engineer should decide how to handle telegram requests. There are two ways
 
 #### Webhooks
-The way means the engineer will set the host address in Telegram, calling the endpoint 
-`https://api.telegram.org/bot(token)/setWebhook?url=https://site/address-no-one-knows`.
-At the client side can be set the url for handling telegram requests.
-The request usually starts to handle immediately after the user wrote something.
+Set the webhook URL in Telegram: `https://api.telegram.org/bot(token)/setWebhook?url=https://site/address-no-one-knows`.
+Then map the endpoint in your application:
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTelegramCore(new TelegramBotClientOptions("51182636:AAHiPDQ8kVcbs2WZWG4Z..."));
@@ -89,10 +88,9 @@ app.MapTelegramRequests("address-no-one-knows");
 app.Run();
 ```
 
-#### Long pooling
-The way means the application will call Telegram to get new updates for the bot. It is suitable for local environment for 
-test purposes (there is no easy way to provide a public host for local environment). Also, can be used in the cases when
-the application load is too much to make horizontal scaling at the application level.
+#### Long Polling
+The way means the application will call Telegram to get new updates for the bot.
+Useful for local environments or when horizontal scaling isn't feasible:
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTelegramCore(new TelegramBotClientOptions("51182636:AAHiPDQ8kVcbs2WZWG4Z..."));
@@ -102,23 +100,21 @@ app.Run();
 ```
 
 ### Authentication
-To work with authentication, the developer should define the `User<UserKey>` object and register the new functionality
-in the container
+To enable authentication, define a `User<UserKey>` object and register the functionality:
 ```csharp
 services.AddTelegramCore()
     .AddTelegramAuthentication<User, Guid, TelegramUserQueryService, RequestContext>();
 ```
-The first generic arguments are known. 
-The `TelegramUserQueryService` implements [ITelegramUserQueryService](https://github.com/win7user10/Laraue.Telegram.NET/blob/master/src/Laraue.Telegram.NET.Authentication/Services/ITelegramUserQueryService.cs),
-that allows a library to now how to get the system user by the telegram user id and how to store a new user object.
-The `RequestContext` is just the little class that will be captured in controllers, to avoid taken `TelegramRequestContext<Guid>` as argument.
+- `TelegramUserQueryService` implements [ITelegramUserQueryService](https://github.com/win7user10/Laraue.Telegram.NET/blob/master/src/Laraue.Telegram.NET.Authentication/Services/ITelegramUserQueryService.cs),
+and handles user lookup/store logic.
+- `RequestContext` is a wrapper around `TelegramRequestContext<Guid>` to simplify usage.
+
 ```csharp
 public sealed class RequestContext : TelegramRequestContext<Guid> // Here Guid is the key of TUser
 {
 }
 ```
-
-Now the user information can be taken in Telegram controllers
+Now, in controllers, you can access user information:
 ```csharp
 public class MenuController : TelegramController
 {
@@ -132,16 +128,15 @@ public class MenuController : TelegramController
     }
 }
 ```
-
 ### Autorization
-Some endpoints can be available only for users with extended permissions. To reach that define the roles constants.
+Protect endpoints using roles:
 ```csharp
 public static class Roles
 {
     public const string Admin = "Admin";
 }
 ```
-Set the attribute for the protected endpoints.
+Apply the attribute to protected endpoints:
 ```csharp
 public class AdminController : TelegramController
 {
@@ -153,17 +148,16 @@ public class AdminController : TelegramController
     }
 }
 ```
-And the developer should implement the class that will explain, what is the role related to the specified user 
-implementing the [IUserRoleProvider](https://github.com/win7user10/Laraue.Telegram.NET/blob/master/src/Laraue.Telegram.NET.Authentication/Services/IUserRoleProvider.cs).
-After the registration in the container, the authorization should work.
+Implement [IUserRoleProvider](https://github.com/win7user10/Laraue.Telegram.NET/blob/master/src/Laraue.Telegram.NET.Authentication/Services/IUserRoleProvider.cs)
+to define how roles are assigned to users:
 ```csharp
 .AddScoped<IUserRoleProvider, UserRoleProvider>()
 ```
-Another option is to use the already written [class](https://github.com/win7user10/Laraue.Telegram.NET/blob/master/src/Laraue.Telegram.NET.Authentication/Services/StaticUserRoleProvider.cs)
-that loads user roles from the application options.
+Alternatively, use the built-in [StaticUserRoleProvider](https://github.com/win7user10/Laraue.Telegram.NET/blob/master/src/Laraue.Telegram.NET.Authentication/Services/StaticUserRoleProvider.cs)
+that loads roles from app options.
 
 #### Middlewares
-The functionality to extend the request pipeline or interrupt request before the application layer as on ASP NET.
+Extend request handling or intercept requests before they reach the app layer, similar to ASP.NET:
 ```csharp
 public class LogExceptionsMiddleware : ITelegramMiddleware
 {
@@ -193,15 +187,12 @@ public class LogExceptionsMiddleware : ITelegramMiddleware
     }
 }
 ```
-
-Register the middleware in the container
+Register the middleware:
 ```csharp
 services.AddTelegramMiddleware<LogExceptionsMiddleware>();
 ```
-
 #### Localization
-To enable the functionality, needs to implement the inheritor of [BaseCultureInfoProvider](https://github.com/win7user10/Laraue.Telegram.NET/blob/master/src/Laraue.Telegram.NET.Localization/BaseCultureInfoProvider.cs) that will return the user culture.
-The base implementation could look like that
+Enable localization by implementing [BaseCultureInfoProvider](https://github.com/win7user10/Laraue.Telegram.NET/blob/master/src/Laraue.Telegram.NET.Localization/BaseCultureInfoProvider.cs):
 ```csharp
 public class LocalizationProvider : BaseCultureInfoProvider
 {
@@ -232,7 +223,7 @@ public class LocalizationProvider : BaseCultureInfoProvider
     }
 }
 ```
-then set up the localization
+Set up localization:
 ```csharp
 .AddTelegramRequestLocalization<LocalizationProvider>()
 .Configure<TelegramRequestLocalizationOptions>(opt =>
@@ -241,17 +232,18 @@ then set up the localization
     opt.DefaultLanguage = ["en"];
 })
 ```
-Now the developer can use default Microsoft functionality with define language phrases in different `resx` files. As example, 
-having hierarchy
-`Resources/Buttons.resx`
-`Resources/Buttons.fr.resx`
-and call `Resources.Buttons.Menu` from the C# code. It will get the French phrase when the user auth has French language,
-otherwise the default phrase will be returned.
+Now use standard Microsoft localization features with `resx` files:
+```
+Resources/Buttons.resx
+Resources/Buttons.fr.resx
+```
+Access localized strings like `Resources.Buttons.Menu` — the correct language is selected automatically based
+on the user's settings.
 
 ## Challenges
 The main solved problems will be described in the separated articles
-- How to make architecture allows adding only functionality the user required 
-- How to make architecture extendable, allows the end user to add new request handling features
+- How to make the architecture modular so users only include what they need
+- How to design an extendable system that allows adding new request handling features
 
 ## Timeline
 - **Jan 2023** Base version with core functionality based on webhooks
@@ -259,6 +251,6 @@ The main solved problems will be described in the separated articles
 - **Jan 2024** Localization package added
 - **Aug 2025** Long pooling mode added
 
-## Real use cases
+## Real Use Cases
 The library is widely used in the [Learn Language](learn-language) project and is responsible for all communication with telegram.
 Also, the project [SPB Real Estate](real-estate) use this library to provide the Telegram interface.
