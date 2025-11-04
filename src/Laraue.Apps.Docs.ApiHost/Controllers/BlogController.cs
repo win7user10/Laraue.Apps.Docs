@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Laraue.Apps.Docs.ApiHost.Controllers;
 
 [ApiController]
-[Route("api/docs")]
-public class DocsController(ICmsBackend cmsBackend) : ControllerBase
+[Route("api/blog")]
+public class BlogController(ICmsBackend cmsBackend) : ControllerBase
 {
     [HttpPost("single")]
     public Dictionary<string, object> Get([FromBody] GetEntityRequest request)

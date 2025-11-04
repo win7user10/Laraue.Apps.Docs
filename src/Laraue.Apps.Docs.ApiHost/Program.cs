@@ -13,7 +13,7 @@ var cmsBackend = new CmsBackendBuilder(new MarkdownParser(new MarkdownToHtmlTran
     .AddContentType<Project>()
     .AddContentType<Article>()
     .AddContentType<Documentation>()
-    .AddContentFolder("docs")
+    .AddContentFolder("blog")
     .Build();
 
 builder.Services.AddSingleton(cmsBackend);
