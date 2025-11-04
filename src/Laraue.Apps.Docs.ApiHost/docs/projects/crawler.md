@@ -16,16 +16,16 @@ description: A highly customizable crawler built with C# that lets you extract d
 | Downloads     | ![latest version](https://img.shields.io/nuget/dt/Laraue.Crawling.Common) |
 | Github        | [Laraue.Crawling](https://github.com/win7user10/Laraue.Crawling)          |
 
-## What is the crawling
+## What Is The Crawling
 Crawling, also known as web scraping, is the automated process of systematically browsing the
 internet to extract data from websites. It involves a program, called a crawler or spider,
 following links and downloading content from pages. This extracted data can then be analyzed, stored,
 or used for various purposes like market research or price comparison.
 
-## Initial implementation vision
+## Initial Implementation Vision
 There were two ideas on how to implement the crawling program
 
-#### Application implementation
+#### Application Implementation
 This is the user-friendly way to allow non-programmatic users to work with software.
 It should have an interface where users can create a sequence of blocks to make a crawling schema.
 
@@ -43,7 +43,7 @@ It seems like this part can be added in the future, when the backend will be sta
 with an interface. I even think almost nothing (but it can be enough for most common cases).
 As soon as the first target was to make something that can grab data in any situation, the limitation sounds bad.
 
-#### Library implementation
+#### Library Implementation
 The programmer-friendly way to work with software. It will be written in the specific language that only users
 that use that language can work with.
 
@@ -57,14 +57,14 @@ Cons
 1. **Limited audience:** sharply reduces possible users to C# programmers
 2. **Harder to start:** it is required to download the repo and write a batch of code to get a working example
 
-## The main problems tried to be solved
+## The Main Problems This Library Tries to Solve
 1. **Decrease the amount of routine work:** the typical crawler writing is not hard but takes a lot of time for the engineer.
 2. **Simplify support:** sometimes requested resources change their structure, and it leads to code rewriting.
 Fast-developed crawlers often have a bad architecture, and it's easier to rewrite them fully than make the changes.
 3. **Better testability:** a strongly typed library should show type errors as soon as possible, and the models defined
 properties can be tested as usual C# classes.
 
-## How to use the library
+## How To Use The Library
 1. Users should choose the type of crawling schema builder. The chosen class defines what actions will be available for
 nodes. Inbuilt builders are made for
 [Static html](https://github.com/win7user10/Laraue.Crawling/blob/master/src/Laraue.Crawling.Static.AngleSharp/AngleSharpSchemaBuilder.cs), 
@@ -104,7 +104,7 @@ The main solved problems will be described in the separated articles
 - **Apr 2023** Made the base class for crawler job - ASP NET Host that runs crawling with the scheduling
 - **May 2024** Refactoring that allowed to add new tree-structures crawlers in one-two hours 
 
-## Real use cases
+## Real Use Cases
 The library is widely used in the [SPB Real Estate](real-estate) project. Crawlers of the main advertisements sites,
 [Avito](https://github.com/win7user10/Laraue.Apps.RealEstate/blob/main/src/Laraue.Apps.RealEstate.Crawling.Impl/Avito/AvitoCrawlingSchema.cs), and
 [Cian](https://github.com/win7user10/Laraue.Apps.RealEstate/blob/main/src/Laraue.Apps.RealEstate.Crawling.Impl/Cian/CianCrawlingSchema.cs)
