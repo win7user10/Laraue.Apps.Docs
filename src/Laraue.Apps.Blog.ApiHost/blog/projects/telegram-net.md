@@ -5,7 +5,7 @@ tags: [Telegram,.NET,C#]
 description: Allows to write ASP NET like telegram controllers  middlewares and authentication.
 ---
 ## Key Features
-| Feature      | Value                                                                       |
+|              |                                                                             |
 |--------------|-----------------------------------------------------------------------------|
 | Language     | C#                                                                          |
 | Framework    | NET9                                                                        |
