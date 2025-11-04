@@ -62,12 +62,6 @@ rewriting. Fast-developed crawlers often have a bad architecture, and it's easie
 3. **Better testability:** strongly typed library should show type errors as soon as possible, and the models defined
 properties can be tested as usual C# classes.
 
-## Tech Stack
-The project is built as C# library as part of Laraue projects ecosystem. It allows easily connecting the crawler to
-C# projects. Only .NET version 9+ and C# 14+ are supported to enable the latest language features, and to
-reduce efforts of the nuget support. In any case, netstandard support adding should not take a lot of time if it 
-is required.
-
 ## How to use the library
 1. Users should choose the type of crawling schema builder. The chosen class defines what actions will be available for node.
 Inbuilt builders are made for 
