@@ -17,60 +17,62 @@ description: A highly customizable crawler built with C# that lets you extract d
 | Github        | [Laraue.Crawling](https://github.com/win7user10/Laraue.Crawling)          |
 
 ## What is the crawling
-Crawling, also known as web scraping, is the automated process of systematically browsing the internet to extract data
-from websites. It involves a program, called a crawler or spider, following links and downloading content from pages.
-This extracted data can then be analyzed, stored, or used for various purposes like market research or price comparison.
+Crawling, also known as web scraping, is the automated process of systematically browsing the
+internet to extract data from websites. It involves a program, called a crawler or spider,
+following links and downloading content from pages. This extracted data can then be analyzed, stored,
+or used for various purposes like market research or price comparison.
 
 ## Initial implementation vision
-There were two ideas how to implement the crawling program
+There were two ideas on how to implement the crawling program
 
 #### Application implementation
-It is the user-friendly way to allow non-programmatic users to work with software. Should have an interface where user
-can make the sequence of blocks to make a crawling schema.
+This is the user-friendly way to allow non-programmatic users to work with software.
+It should have an interface where users can create a sequence of blocks to make a crawling schema.
 
 Pros
-1. **User-friendly:** easy to start for user without programming knowledge
-2. **Easier to promote:** when the interface is ready, it is straightforward to make GIFs and videos with it, make
-tutorials, etc.
+1. **User-friendly:** easy to start for users without programming knowledge
+2. **Easier to promote:** when the interface is ready, it is straightforward to make GIFs and videos with it, 
+create tutorials, etc.
 
 Cons
-1. **Hard implementation:** to make an interface means not only to make a frontend (which is definitely hard), but to make
-an additional architecture that will transform human-like view to programming code. Any edit on Backend can lead to 
-edits on this layer and on Frontend. It seems like this part can be added in the future, when Backend will be stable.
-2. **Limitations:** not all that can be described on the NP-full Programming language can be described with interface. 
-I even think almost nothing (but it can be enough for most common cases). As soon as the first target was to make 
-something that can grab data in any situation the limit sounds bad.
+1. **Hard implementation:** tto make an interface means not only to create a frontend (which is definitely hard),
+but also to create an additional architecture that will transform a human-like view into programming code.
+Any edit on the backend can lead to edits on this layer and on the frontend.
+It seems like this part can be added in the future, when the backend will be stable.
+2. **Limitations:** not everything that can be described in the NP-full programming language can be described 
+with an interface. I even think almost nothing (but it can be enough for most common cases).
+As soon as the first target was to make something that can grab data in any situation, the limitation sounds bad.
 
 #### Library implementation
-The programmer-friendly way to work with software. It Will be written in the specific language that only for users that
-use that language.
+The programmer-friendly way to work with software. It will be written in the specific language that only users
+that use that language can work with.
 
 Pros
-1. **Flexible:** when the library follows software principals, it can allow user to make almost all he wants
+1. **Flexible:** when the library follows software principles, it can allow users to do almost everything they want
 2. **Less development time:** the product can be made on the clear C#
-3. **Cheaper support:** no need to have Database or Domain to share development results
-4. **Can be self-hosted:** MIT License allows using the library for any purposes
+3. **Cheaper support:** no need to have a database or domain to share development results
+4. **Can be self-hosted:** the MIT License allows using the library for any purposes
 
 Cons
-1. **Limited audience:** sharply reduces possible users to the C# programmers
+1. **Limited audience:** sharply reduces possible users to C# programmers
 2. **Harder to start:** it is required to download the repo and write a batch of code to get a working example
 
 ## The main problems tried to be solved
 1. **Decrease the amount of routine work:** the typical crawler writing is not hard but takes a lot of time for the engineer.
-2. **Simplify support:** sometimes requested resources change their structure, and it leads to code
-rewriting. Fast-developed crawlers often have a bad architecture, and it's easier to rewrite them fully than make the changes.
-3. **Better testability:** strongly typed library should show type errors as soon as possible, and the models defined
+2. **Simplify support:** sometimes requested resources change their structure, and it leads to code rewriting.
+Fast-developed crawlers often have a bad architecture, and it's easier to rewrite them fully than make the changes.
+3. **Better testability:** a strongly typed library should show type errors as soon as possible, and the models defined
 properties can be tested as usual C# classes.
 
 ## How to use the library
-1. Users should choose the type of crawling schema builder. The chosen class defines what actions will be available for node.
-Inbuilt builders are made for 
+1. Users should choose the type of crawling schema builder. The chosen class defines what actions will be available for
+nodes. Inbuilt builders are made for
 [Static html](https://github.com/win7user10/Laraue.Crawling/blob/master/src/Laraue.Crawling.Static.AngleSharp/AngleSharpSchemaBuilder.cs), 
 [Dynamic html](https://github.com/win7user10/Laraue.Crawling/blob/master/src/Laraue.Crawling.Dynamic.PuppeterSharp/PuppeterSharpSchemaBuilder.cs) 
 or even [Static xml](https://github.com/win7user10/Laraue.Crawling/blob/master/src/Laraue.Crawling.Static.Xml/XmlSchemaBuilder.cs). 
 Actually, an implementation almost for any tree structure can be added; the user needs to implement the parser class, like
 [that](https://github.com/win7user10/Laraue.Crawling/blob/master/src/Laraue.Crawling.Static.Xml/XmlParser.cs) for the required node type and a batch of related classes to define node methods. 
-2. Then the user builds schema as on these examples for [static html](https://github.com/win7user10/Laraue.Crawling/blob/master/tests/Laraue.Crawling.Static.Tests/AngleSharpParserTests.cs#L16) 
+2. Then the user builds schema as shown in these examples for [static html](https://github.com/win7user10/Laraue.Crawling/blob/master/tests/Laraue.Crawling.Static.Tests/AngleSharpParserTests.cs#L16) 
 and [dynamic html](https://github.com/win7user10/Laraue.Crawling/blob/master/tests/Laraue.Crawling.Dynamic.Tests/PuppeterSharpParserTests.cs)
 3. The schema can be run via parser class for the specified schema: [static html](https://github.com/win7user10/Laraue.Crawling/blob/master/tests/Laraue.Crawling.Dynamic.Tests/PuppeterSharpParserTests.cs) or 
 [dynamic html](https://github.com/win7user10/Laraue.Crawling/blob/master/tests/Laraue.Crawling.Dynamic.Tests/PuppeterSharpParserTests.cs#L100). 
@@ -91,10 +93,10 @@ Assert.Equal("Hi", model.Title);
 
 ## Challenges
 The main solved problems will be described in the separated articles 
-- How the library can be strongly-typed for the client despite the inner layer will use untyped delegates and work with
+- How the library can be strongly-typed for the client despite the inner layer using untyped delegates and working with
 `object`
-- How to make common API for sync and async cases not increasing the code amount
-- How to make API flexible enough to allow the customer to do even the developer did not cover
+- How to make a common API for sync and async cases without increasing the code amount
+- How to make an API flexible enough to allow the customer to do even what the developer did not cover
 
 ## Timeline
 - **Jun 2022** Base version with dynamic and static HTML parsing support
