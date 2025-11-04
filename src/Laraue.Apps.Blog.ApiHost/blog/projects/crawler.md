@@ -5,16 +5,16 @@ tags: [Crawler,.NET,C#]
 description: A highly customizable crawler built with C# that lets you extract data from any website, even those with complex JavaScript rendering.
 ---
 ## Key features
-| Feature       | Value                                                                     |
-|---------------|---------------------------------------------------------------------------|
-| Language      | C#                                                                        |
-| Framework     | NET9                                                                      |
-| Project type  | Library                                                                   |
-| Status        | Proof of Concept                                                          |
-| License       | MIT                                                                       |
-| Nuget         | ![latest version](https://img.shields.io/nuget/v/Laraue.Crawling.Common)  |
-| Downloads     | ![latest version](https://img.shields.io/nuget/dt/Laraue.Crawling.Common) |
-| Github        | [Laraue.Crawling](https://github.com/win7user10/Laraue.Crawling)          |
+|              |                                                                           |
+|--------------|---------------------------------------------------------------------------|
+| Language     | C#                                                                        |
+| Framework    | NET9                                                                      |
+| Project type | Library                                                                   |
+| Status       | Proof of Concept                                                          |
+| License      | MIT                                                                       |
+| Nuget        | ![latest version](https://img.shields.io/nuget/v/Laraue.Crawling.Common)  |
+| Downloads    | ![latest version](https://img.shields.io/nuget/dt/Laraue.Crawling.Common) |
+| Github       | [Laraue.Crawling](https://github.com/win7user10/Laraue.Crawling)          |
 
 ## What Is The Crawling
 Crawling, also known as web scraping, is the automated process of systematically browsing the

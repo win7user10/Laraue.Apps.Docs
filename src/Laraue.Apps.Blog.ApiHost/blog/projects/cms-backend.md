@@ -5,7 +5,7 @@ tags: [CMS,.NET,C#]
 description: Backend API builder for static site based on markdown files.
 ---
 ## Key features
-| Feature      | Value                                                                |
+|              |                                                                      |
 |--------------|----------------------------------------------------------------------|
 | Language     | C#                                                                   |
 | Framework    | NET9                                                                 |

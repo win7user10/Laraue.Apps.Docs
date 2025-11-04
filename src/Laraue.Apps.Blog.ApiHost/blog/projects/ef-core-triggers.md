@@ -6,15 +6,15 @@ tags: [Triggers,SQL,.NET,C#]
 description: The library to write triggers in C# with EF Core.
 ---
 ## Key features
-| Feature        | Value                                                                        |
-|----------------|------------------------------------------------------------------------------|
-| Language       | C#                                                                           |
-| Framework      | NET Standard 2.1 / NET6 / NET8 / NET9                                        |
-| Project type   | Library                                                                      |
-| Status         | Completed                                                                    |
-| License        | MIT                                                                          |
-| Nuget          | ![latest version](https://img.shields.io/nuget/v/Laraue.EfCoreTriggers)      |
-| Downloads      | ![latest version](https://img.shields.io/nuget/dt/Laraue.EfCoreTriggers)     |
-| Github         | [Laraue.EfCoreTriggers](https://github.com/win7user10/Laraue.EfCoreTriggers) |
+|              |                                                                              |
+|--------------|------------------------------------------------------------------------------|
+| Language     | C#                                                                           |
+| Framework    | NET Standard 2.1 / NET6 / NET8 / NET9                                        |
+| Project type | Library                                                                      |
+| Status       | Completed                                                                    |
+| License      | MIT                                                                          |
+| Nuget        | ![latest version](https://img.shields.io/nuget/v/Laraue.EfCoreTriggers)      |
+| Downloads    | ![latest version](https://img.shields.io/nuget/dt/Laraue.EfCoreTriggers)     |
+| Github       | [Laraue.EfCoreTriggers](https://github.com/win7user10/Laraue.EfCoreTriggers) |
 
 The article is being written... Perhaps even now.
