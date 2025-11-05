@@ -11,7 +11,7 @@ description: A real estate crawler and AI-powered analysis application built wit
 |              |                                                                                |
 |--------------|--------------------------------------------------------------------------------|
 | Language     | C#                                                                             |
-| Framework    | NET9                                                                           |
+| Framework    | .NET 9                                                                         |
 | Project type | Application (Real Estate Api + Worker Host + GpuWorkerHost)                    |
 | Status       | Proof of concept                                                               |
 | License      | MIT                                                                            |
