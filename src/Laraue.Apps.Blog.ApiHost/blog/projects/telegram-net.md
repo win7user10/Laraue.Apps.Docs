@@ -10,7 +10,7 @@ description: Allows to write ASP NET like telegram controllers  middlewares and 
 | Language     | C#                                                                          |
 | Framework    | NET9                                                                        |
 | Project type | Library                                                                     |
-| Status       | Active Development                                                          |
+| Status       | Completed                                                                   |
 | License      | MIT                                                                         |
 | Nuget        | ![latest version](https://img.shields.io/nuget/v/Laraue.Telegram.NET.Core)  |
 | Downloads    | ![latest version](https://img.shields.io/nuget/dt/Laraue.Telegram.NET.Core) |

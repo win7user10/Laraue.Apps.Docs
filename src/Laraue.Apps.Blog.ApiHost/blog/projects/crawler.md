@@ -8,7 +8,7 @@ description: A highly customizable crawler built with C# that lets you extract d
 |              |                                                                           |
 |--------------|---------------------------------------------------------------------------|
 | Language     | C#                                                                        |
-| Framework    | NET9                                                                      |
+| Framework    | .NET 9                                                                    |
 | Project type | Library                                                                   |
 | Status       | Proof of Concept                                                          |
 | License      | MIT                                                                       |

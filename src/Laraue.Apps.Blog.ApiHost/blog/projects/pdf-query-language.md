@@ -9,7 +9,7 @@ description: The programming language designed to query PDF elements.
 |              |                                                                 |
 |--------------|-----------------------------------------------------------------|
 | Language     | C#                                                              |
-| Framework    | NET9                                                            |
+| Framework    | .NET 9                                                          |
 | Project type | Library                                                         |
 | Status       | Active Development                                              |
 | License      | AGPL-3.0                                                        |

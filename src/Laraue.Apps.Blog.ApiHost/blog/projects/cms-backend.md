@@ -8,7 +8,7 @@ description: Backend API builder for static site based on markdown files.
 |              |                                                                      |
 |--------------|----------------------------------------------------------------------|
 | Language     | C#                                                                   |
-| Framework    | NET9                                                                 |
+| Framework    | .NET 9                                                               |
 | Project type | Library                                                              |
 | Status       | Active Development                                                   |
 | License      | MIT                                                                  |

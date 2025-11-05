@@ -9,7 +9,7 @@ description: The library to write triggers in C# with EF Core.
 |              |                                                                              |
 |--------------|------------------------------------------------------------------------------|
 | Language     | C#                                                                           |
-| Framework    | NET Standard 2.1 / NET6 / NET8 / NET9                                        |
+| Framework    | .NET Standard 2.1 / .NET 6 / .NET 8 / .NET 9                                 |
 | Project type | Library                                                                      |
 | Status       | Completed                                                                    |
 | License      | MIT                                                                          |
