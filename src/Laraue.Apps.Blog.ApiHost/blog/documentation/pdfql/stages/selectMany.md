@@ -2,6 +2,8 @@
 type: documentation
 title: SelectMany stage
 project: PdfQL
+createdAt: 2025-08-01
+updatedAt: 2025-08-01
 ---
 SelectMany is the operation that can get from the objects collection the sequence of requested objects.
 

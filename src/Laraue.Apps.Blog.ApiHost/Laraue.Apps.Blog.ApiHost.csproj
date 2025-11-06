@@ -7,10 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Laraue.CmsBackend" Version="1.0.0" />
+        <PackageReference Include="Laraue.CmsBackend" Version="1.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <Content Include="blog\**\*.md">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

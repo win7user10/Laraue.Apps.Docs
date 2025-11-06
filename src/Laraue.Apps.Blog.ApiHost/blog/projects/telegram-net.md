@@ -3,6 +3,8 @@ title: Telegram.NET
 type: project
 tags: [Telegram,.NET,C#]
 description: Allows to write ASP NET like telegram controllers  middlewares and authentication.
+createdAt: 2025-11-01
+updatedAt: 2025-11-04
 ---
 ## Key Features
 |              |                                                                             |

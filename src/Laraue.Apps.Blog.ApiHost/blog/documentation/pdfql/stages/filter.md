@@ -2,6 +2,8 @@
 type: documentation
 title: Filter stage
 project: PdfQL
+createdAt: 2025-08-01
+updatedAt: 2025-08-01
 ---
 Filter is the operation that returns objects from a sequence that matches the passed condition.
 

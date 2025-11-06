@@ -2,6 +2,8 @@
 type: documentation
 title: Select stage
 project: PdfQL
+createdAt: 2025-08-01
+updatedAt: 2025-08-01
 ---
 Select is the operation that can get from the single object the sequence of requested objects.
 

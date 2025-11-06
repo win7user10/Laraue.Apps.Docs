@@ -2,6 +2,8 @@
 type: documentation
 title: Take stage
 project: PdfQL
+createdAt: 2025-08-01
+updatedAt: 2025-08-01
 ---
 Take is the operation that limits a sequence to the passed number of elements. 
 

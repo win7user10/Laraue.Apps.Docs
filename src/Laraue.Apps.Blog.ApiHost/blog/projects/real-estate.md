@@ -6,6 +6,8 @@ githubLink: https://github.com/win7user10/Laraue.Apps.RealEstate
 applicationLink: https://laraue.com/crawled-apartments
 tags: [Crawler,AI,Ollama]
 description: A real estate crawler and AI-powered analysis application built with Ollama and Crawler library.
+createdAt: 2025-11-01
+updatedAt: 2025-11-04
 ---
 ## Key features
 |              |                                                                                |

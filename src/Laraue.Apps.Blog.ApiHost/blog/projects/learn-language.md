@@ -3,6 +3,8 @@ title: Learn Language Bot
 type: project
 tags: [AI,Ollama,Telegram,.NET,C#]
 description: A Telegram bot to learn different languages with quizzes.
+createdAt: 2025-11-01
+updatedAt: 2025-11-05
 ---
 ## Key features
 |                  |                                                                                 |

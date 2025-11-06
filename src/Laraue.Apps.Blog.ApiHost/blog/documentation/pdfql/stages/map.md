@@ -2,6 +2,8 @@
 type: documentation
 title: Map stage
 project: PdfQL
+createdAt: 2025-08-01
+updatedAt: 2025-08-01
 ---
 Map is the operation that transforms sequence of objects to the sequence of other objects using map function.
 

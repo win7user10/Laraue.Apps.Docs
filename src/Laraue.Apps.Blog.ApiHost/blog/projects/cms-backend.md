@@ -3,6 +3,8 @@ title: CMS Backend
 type: project
 tags: [CMS,.NET,C#]
 description: Backend API builder for static site based on markdown files.
+createdAt: 2025-11-01
+updatedAt: 2025-11-01
 ---
 ## Key features
 |              |                                                                      |

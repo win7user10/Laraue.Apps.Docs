@@ -3,6 +3,8 @@ title: Crawler
 type: project
 tags: [Crawler,.NET,C#]
 description: A highly customizable crawler built with C# that lets you extract data from any website, even those with complex JavaScript rendering.
+createdAt: 2025-11-01
+updatedAt: 2025-11-03
 ---
 ## Key features
 |              |                                                                           |

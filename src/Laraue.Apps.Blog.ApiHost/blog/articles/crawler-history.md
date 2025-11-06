@@ -3,6 +3,8 @@ title: The history of the crawler project
 type: article
 projects: [crawler]
 description: The project highlights a journey of iterative design and problem-solving in the realm of web scraping.
+createdAt: 2025-10-07
+updatedAt: 2025-10-07
 ---
 ## About the Idea
 The idea to automate crawler creation came to me almost immediately after I started working as a software engineer. Many customers requested tools to extract data from old resources or public data sources for reuse on their sites. Each crawler creation was similar: first, explore the website layout, then write boilerplate code to get data from specific page parts. I wanted to optimize this process, but as an employee, I didn’t have time to write libraries and was expected to focus on customer projects.

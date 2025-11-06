@@ -4,6 +4,8 @@ type: project
 githubLink: https://github.com/win7user10/Laraue.EfCoreTriggers
 tags: [Triggers,SQL,.NET,C#]
 description: The library to write triggers in C# with EF Core.
+createdAt: 2025-11-01
+updatedAt: 2025-11-01
 ---
 ## Key features
 |              |                                                                              |

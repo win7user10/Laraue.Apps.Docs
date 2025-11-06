@@ -2,6 +2,8 @@
 type: documentation
 title: FirstOrDefault stage
 project: PdfQL
+createdAt: 2025-08-01
+updatedAt: 2025-08-01
 ---
 FirstOrDefault is the operation that returns first object from the sequence or null if the sequence is empty.
 
