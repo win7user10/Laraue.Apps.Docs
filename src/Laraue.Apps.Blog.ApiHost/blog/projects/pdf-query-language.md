@@ -7,7 +7,7 @@ description: The programming language designed to query PDF elements.
 createdAt: 2025-11-01
 updatedAt: 2025-11-06
 ---
-## Key features
+## Key Features
 |              |                                                                 |
 |--------------|-----------------------------------------------------------------|
 | Language     | C#                                                              |

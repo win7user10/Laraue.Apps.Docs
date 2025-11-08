@@ -9,7 +9,7 @@ description: A real estate crawler and AI-powered analysis application built wit
 createdAt: 2025-11-01
 updatedAt: 2025-11-04
 ---
-## Key features
+## Key Features
 |              |                                                                                |
 |--------------|--------------------------------------------------------------------------------|
 | Language     | C#                                                                             |

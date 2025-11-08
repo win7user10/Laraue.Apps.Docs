@@ -6,7 +6,7 @@ description: A highly customizable crawler built with C# that lets you extract d
 createdAt: 2025-11-01
 updatedAt: 2025-11-03
 ---
-## Key features
+## Key Features
 |              |                                                                           |
 |--------------|---------------------------------------------------------------------------|
 | Language     | C#                                                                        |
