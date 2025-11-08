@@ -7,7 +7,7 @@ description: The library to write triggers in C# with EF Core.
 createdAt: 2025-11-01
 updatedAt: 2025-11-01
 ---
-## Key features
+## Key Features
 |              |                                                                              |
 |--------------|------------------------------------------------------------------------------|
 | Language     | C#                                                                           |
