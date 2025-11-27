@@ -3,9 +3,9 @@ title: EF Core triggers
 type: project
 githubLink: https://github.com/win7user10/Laraue.EfCoreTriggers
 tags: [Triggers,SQL,.NET,C#]
-description: The library to write triggers in C# with EF Core.
+description: The library to write triggers using fluent syntax in C# and EF Core.
 createdAt: 2025-11-01
-updatedAt: 2025-11-01
+updatedAt: 2025-11-27
 ---
 ## Key Features
 |              |                                                                                  |
@@ -38,6 +38,9 @@ When a codebase is poorly structured or lacks comprehensive tests, such changes 
 and unintended consequences.
 - **Data Integrity Enforcement:** In some environments, users may have direct access to the database. This can compromise
 data integrity if changes aren't tracked within the application layer. Triggers can provide an extra layer of protection.
+- **Cost-Effective Infrastructure:** Smaller organizations often seek to minimize infrastructure costs. For simpler use
+cases, it can be more economical to leverage an existing database and build an event system within it, rather than managing
+a dedicated message bus system like Kafka or RabbitMQ.
 
 ## The Challenge with Triggers in EF Core
 When working with triggers and EF Core, the standard approach is to manually execute SQL to create the trigger:
