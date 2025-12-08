@@ -4,7 +4,7 @@ type: project
 tags: [CMS,.NET,C#]
 description: This project is a backend API designed to serve content for static sites built from Markdown files.
 createdAt: 2025-11-01
-updatedAt: 2025-11-08
+updatedAt: 2025-12-08
 ---
 ## Key Features
 |              |                                                                      |
@@ -148,3 +148,8 @@ The specific problems and solutions will be described in separate articles:
 ## Timeline
 - **Sep 2025** CMS investigations to choose a solution for the blog.
 - **Oct 2025** First version of CMS Backend.
+
+## Further Ideas
+- The system can not only be the backend for frontend API, but also has options to make posting in different systems.
+The package `Laraue.CmsBackend.Telegram` can contain tools to run the bot which will post new articles to channels by specified
+criteria. Posts can have attributes to separate posts to different distribution channels.
