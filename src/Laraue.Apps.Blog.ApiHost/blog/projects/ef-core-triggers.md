@@ -5,7 +5,7 @@ githubLink: https://github.com/win7user10/Laraue.EfCoreTriggers
 tags: [Triggers,SQL,.NET,C#]
 description: The library to write triggers using fluent syntax in C# and EF Core.
 createdAt: 2025-11-01
-updatedAt: 2025-11-27
+updatedAt: 2025-12-08
 ---
 ## Key Features
 |              |                                                                                  |
@@ -92,9 +92,9 @@ The specific problems and solutions will be described in separate articles:
 - **Nov 2020** Initial version with Postgres support.
 - **Dec 2020** Added support for MS SQL, SQLite, MySQL.
 - **~ Dec 2022** Stable version with extensive built-in math and string function support.
+- **Dec 2025** Extracted triggers core functionality to the separated packages. It allows generating triggers without
+EF Core and simplifies versions updating.
 
 ## Further improvements
-- Plans include moving the core trigger creation functionality (based on expressions) into a separate library
-to allow for broader usage outside of EF Core.
 - Refactor the methods translation plugin system to align with the approach used in Linq2DB: mark methods with attributes
 to define how they should be translated into SQL.
