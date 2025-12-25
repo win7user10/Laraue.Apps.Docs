@@ -1,83 +1,86 @@
 ﻿---
-title: Как я пытался ранжировать квартиры по их фотографиям
+title: How I tried to rank apartments based on their photos
 type: article
-projects: [crawler]
-description: The project highlights a journey of iterative design and problem-solving in the realm of web scraping.
-createdAt: 2025-10-07
-updatedAt: 2025-12-05
+projects: [real-estate, crawler, telegram-net]
+description: A story about how a system for finding the perfect apartment was created
+createdAt: 2025-12-25
+updatedAt: 2025-12-25
 ---
-## Как появилась идея
-Покупка квартиры - достаточно сложное и дорогое дело. Хочется выбрать лучшее из того, что есть на рынке и не прогадать по цене.
-С такими мыслями наша семья начинала поиски квартиры на вторичном рынке в Санкт Петербурге в начале 2023 года.
+## How the Idea Appeared
+Buying an apartment is a rather complex and expensive deal. You want to choose the best option on the market
+and avoid mistakes with the price. With these thoughts in mind, our family began searching for an apartment
+on the secondary market in St. Petersburg at the beginning of 2023.
 
-Объявления в России принято искать на многочисленных площадках с недвижимостью: Циан, Авито, Дом Клик и т.д. У каждой
-свои механики и множество объектов недвижимости. Я пытался просмотреть все, которые подходили по параметрам 
-"станция метро", "время до метро", "максимальная цена", "минимальная площадь". Но вскоре понял, что это занимает слишком
-много времени ежедневно.
+In Russia, users can search advertisements on many real estate platforms: Cian, Avito, DomClick, etc. Each has
+its own mechanics and set of properties. I tried to view all items that matched the parameters
+"metro station," "time to subway," "maximum price," "minimum area" I choose. But soon realized it was taking too
+much time every day.
 
-Кроме того, мы были готовы пожертвовать частью параметров, если цена будет действительно хорошей. 
-С учетом этого пришлось бы просматривать вообще все объявления, удовлетворяющие определенному ценовому диапазону, 
-и пытаться как-то их ранжировать в своей голове. 
+Furthermore, we were willing to sacrifice some parameters of the property if the price is perfect.
+According to that, we need to view almost all listings within a certain price range 
+and try to somehow rank them directly in the head.
 
-Хотелось иметь возможность для абсолютного сравнения. Взять и выполнить сортировку по самым выгодным предложениям по 
-определенным фильтрам сразу на всех площадках.
+I wanted to have the possibility for an absolute comparison. To take and sort by the most profitable offers according to
+certain filters across all platforms at once.
 
-Да, я понимал, что самые выгодные предложения - это скорее всего те, где ты в итоге
-останешься и без квартиры и без денег. Но была надежда на дополнительные фильтрации, которые отсекут совсем нереальные варианты.
-Например, при средней цене в 250 тысяч рублей за квадратный метр, предложения по 150 тысяч довольно подозрительны.
+Yes, I understood that the most profitable offers were probably those where you'd end up
+with neither an apartment nor money. But there was hope that additional filters would weed out completely unrealistic options.
+For example, with an average price of 250 thousand rubles per square meter, offers at 150 thousand are quite suspicious.
 
-## Формулирование задачи
-Рассуждения звучали здраво, и я загорелся мыслью - написать приложение для авторанжирования объявлений. И было совсем не важно,
-что на написание такого функционала уйдет гораздо больше времени, чем на ручной просмотр объявлений в течение нескольких лет.
+## Formulating the Task
+The reasoning looked correct, and I became excited by the idea—to write an application for auto-ranking listings.
+And it didn't matter at all that writing such functionality would take far more time than manual viewing listings
+over several years.
 
-Но перед тем, как что-то писать, необходимо было определиться, что хочется в итоге получить.
-Была сформулирована такая цель: необходим сервис, который будет собирать объявления с разных платформ. Далее, каждому из
-объявлений должен был присваиваться параметр, стоит ли квартира своих денег. Параметр мог быть числом от 0 до 1.
-На основании этого числа уже можно было бы делать сортировку.
+But before writing anything, I needed to decide what I wanted to get in the end.
+This goal was formulated: a service should collect listings from different platforms. Then, each
+listing should be assigned a parameter indicating whether the apartment is worth its price. The parameter could be a number from 0 to 1.
+Based on this number, sorting could be done.
 
-Оставалось придумать определение - когда квартира стоит своих денег. По моим меркам, выгодная квартира - 
-это та, которая за цену квадрата предлагает больше, чем аналогичные в данной локации. Ее, в случае чего, хотя бы можно
-продать без сильных потерь.
+It remained to come up with a definition—when is an apartment worth its price? By my standards, a profitable apartment is
+one that, for the price per square meter, offers more than similar ones in that location. It could at least be sold
+without major losses.
 
-Конечно, в настоящем мире все не так просто. Дома могут быть разные, рядом находиться полезные социальные объекты или
-вредные заводы. Но хотелось уже начать с чего-нибудь, и не усложнять систему раньше времени. Пока остановился на том, что:
-1. Среди рядом расположенных двух квартир с одинаковым ремонтом лучше та, что дешевле.
-2. Среди рядом расположенных двух квартир с разным ремонтом лучше та, что предлагает меньшую стоимость за условную
-единицу ремонта.
+Of course, in the real world, it's not that simple. Buildings can be different, with useful social facilities nearby or
+harmful factories. But I wanted to start with something and not complicate the system prematurely. For now, I settled on the following:
+1. Among two nearby apartments with the same renovation, the less expensive one is better.
+2. Among two nearby apartments with different renovations, the one that offers a lower cost per conditional unit
+of renovation quality is better.
 
-Оставалось самое сложное - придумать, как оценивать ремонт.
-У некоторых агрегаторов были фильтры, вроде "тип ремонта: евроремонт". Но такие параметры заполнялись вручную создателем
-объявления и могли быть далеки от истины. Реализация на всех площадках была разная или отсутствовала вовсе. То есть
-готовых параметров для оценки ремонта не существовало, а значит, настало время пробовать силы в Machine Learning - получать оценку
-ремонта на основании фотографий. Ведь фотографии у объявления есть всегда.
+The most challenging part remained—figuring out how to evaluate the renovation.
+Some aggregators had filters like "renovation type: euro-renovation." But such parameters were filled in manually
+by the listing creator and could be far from the truth. Implementation across all platforms varied or was absent
+altogether. That is, there were no ready-made parameters for evaluating renovation, which meant it was time to try
+my hand at Machine Learning - obtaining an evaluation of the renovation based on photos.
+After all, listings always have photos.
 
-## Обучение нейронной сети
-В начале 2023 года еще не существовало LLM моделей на любой случай жизни. И основной стратегий было обучение
-модели с нуля или дообучение похожей Open Source модели под конкретную задачу. Основная проблема была в том, что я был 
-.NET разработчиком с околонулевым опытом работы с ML. Все, что доводилось когда-то делать, были небольшие модели
-для распознавания букв на основе датасета [mnist](https://www.kaggle.com/datasets/hojjatk/mnist-dataset).
-И то, такие модели обучались почти полностью пошагово по руководствам.
+## Training a Neural Network
+In early 2023, there were no LLM models for every occasion. The main strategy was training
+a model from scratch or fine-tuning a similar Open Source model for a specific task. The main problem was that I was
+a .NET developer with nearly zero experience in ML. All I had ever done were small models
+for letter recognition based on the [mnist](https://www.kaggle.com/datasets/hojjatk/mnist-dataset) dataset.
+And even those were trained almost the step-by-step following tutorials.
 
-### Требования к датасету
-Для того чтобы обучить модель, нужен было сначала собрать датасет. Поскольку планировалось распознавать изображения
-с сайтов недвижимости, было решено скачать с них какое-то количество фотографий для разметки. Была написана небольшая утилита,
-которая прошлась по страницам Циана, собрала пачку ссылок на изображения (порядка 5 тысяч) и загрузила их на
-локальный диск. Оставалось разметить этот датасет.
+### Requirements for the Dataset
+To train a model, a dataset first needed to be collected. Since the plan was to recognize images
+from real estate sites, it was decided to download a certain number of photos from them for labeling. A small utility was written
+that went through Cian's pages, collected a bunch of image links (about five thousand), and downloaded them to the
+local disk. All that remained was to label this dataset.
 
-Перед тем как начать процесс разметки, я долго просматривал загруженные фотографии. Нужно было понять, что вообще можно 
-на них увидеть. А увидеть можно было много чего - фотографии деревьев из окон, рендеры домов и помещений, фото 
-санузлов крупным планом. Был сделан вывод - далеко не все фото релевантны. Часть из них никак не поможет в оценке.
-Кроме того, некоторая доля изображений содержала новые квартиры с черновой отделкой. Такие объявления
-вообще не хотелось бы рассматривать, ведь это почти первичная недвижимость со своим ценообразованием.
+Before starting the labeling process, I looked through the downloaded photos for a long time. I needed to understand
+what could even be seen on them. And I saw a lot—photos of trees from windows, renderings of buildings and interiors,
+close-up photos of bathrooms. The conclusion was made—far from all photos are relevant. Some of them wouldn't help
+in the evaluation. Furthermore, a certain share of images contained new apartments with rough finishes. Such listings
+were not wanted to be considered at all, as that is almost primary real estate with its own pricing.
 
-Исходя из этих выводов, лучшим решением на тот момент показалось сделать три модели:
-1. Первая определит, квартира на фото или нет. Не квартиры, или же изображения не представляющие ценности,
-например, фото вазы, должны вернуть `false`.
-2. Вторая должна отсеять те квартиры, на которых изображен голый бетон.
-3. Третья должна выдать оценку, от 0 до 1, где 1 - это ремонт мечты.
+Based on these conclusions, the best solution at that moment seemed to be to create three models:
+1. The first would determine if it's an apartment in the photo or not. Non-apartments, or images of no value,
+for example, a photo of a vase, should return `false`.
+2. The second should weed out those apartments that show bare concrete.
+3. The third should output a rating, from 0 to 1, where 1 is the dream renovation.
 
-Далее, все три модели должны были вызываться из ASP NET приложения и возвращать результат предсказания, используя
-следующий алгоритм:
+Next, all three models were to be called from an ASP .NET application and return the prediction result, using
+the following algorithm:
 ```csharp
 public record PredictionResult
 {
@@ -87,42 +90,42 @@ public record PredictionResult
 }
 
 var isRelevant = await model1.IsRelevantAsync(imageBytes);
-if (!isRelevant) return new PredictionResult(); // Изображение нерелевантно
+if (!isRelevant) return new PredictionResult(); // Image is not relevant
 
 var hasRenovation = await model2.HasRenovationAsync(imageBytes);
-if (!hasRenovation) return new PredictionResult { IsRelevant = true }; // Изображение релевантно, но на фото черновая отделка
+if (!hasRenovation) return new PredictionResult { IsRelevant = true }; // Image is relevant, but photo shows rough finish
 
 var rating = await model3.GetRenovationRating(imageBytes);
-return new PredictionResult { IsRelevant = true, HasRenovation = true, Rating = rating }; // Изображение релевантно и получена оценка
+return new PredictionResult { IsRelevant = true, HasRenovation = true, Rating = rating }; // Image is relevant and rating obtained
 ```
 
-### Сбор датасета
-Чтобы ускорить маркировку датасета и не допустить логических ошибок при простановке признаков, был сделан небольшой редактор
-на Vue JS + ASP NET:
+## Collecting the Dataset
+To speed up dataset labeling and avoid logical errors when setting features, a small editor
+was made on Vue.js + ASP .NET:
 
-![Редактор датасета](Editor.png "dataset editor")
+![Dataset editor](/images/blog/articles/flat-ranking/dataset-editor.png "dataset editor")
 
-В интерфейс был добавлен placeholder для сообщения о том, что думает об изображении текущая модель 
-("Do not match predicted value 0.75"). Был план собрать 
-минимальный набор изображений, обучить модель и уже при разметке датасета выводить в этом поле результат предсказания.
-Такой подход позволил бы видеть, на каких изображениях модель больше всего ошибается, да и процесс разметки мог стать чуть веселее.
-Пока же этот placeholder выводил статичный текст.
+A placeholder was added to the interface for a message about what the current model thinks of the image
+("Do not match predicted value 0.75"). The plan was to gather
+a minimal set of images, train a model, and then display the prediction result in this field during dataset labeling.
+This approach would allow seeing on which images the model makes the most mistakes, and the labeling process could become a bit funner.
+For now, this placeholder displayed a static text.
 
-### Написание моделей
-После сбора датасета из сотни фотографий, пришла пора заняться обучением моделей. Нужно было понять, заработает ли вообще вся
-эта система. Я пригляделся к запланированным к реализации моделям.
-Первые две из них должны были возвращать boolean ответ - что было похоже на задачу бинарной классификации. 
-Третья должна была возвращать число от 0 до 1 - задача линейной регрессии.
+Writing the Models
+After collecting a dataset of a hundred photos, it was time to start training the models. I needed to understand if this whole
+system even works. I took a closer look at the models planned for implementation.
+The first two were supposed to return a boolean answer—which resembled a binary classification task.
+The third was supposed to return a number from 0 to 1 - a linear regression task.
 
-Началось изучение, как реализовать эти модели. Из похожих задач удалось найти что-то про предсказание стоимости дома на основании
-набора параметров. Но там использовался текст на входе, а не изображения. В то же время все модели, обрабатывающие изображения,
-обычно были многоклассовыми классификаторами.
+I began studying how to implement these models. Among similar tasks, I found something about predicting house prices based on
+a set of parameters. But that used text as input, not images. At the same time, all-models processing images
+were usually multi-class classifiers.
 
-Было решено скрестить найденные варианты решения задач бинарной классификации и линейной регрессии,
-которые работали с текстом и слои какой-то модели, что работала с изображениями. Нужно же было с чего-то начинать.
-Это был вариант, использовавший keras + tensorflow.
+It was decided to crossbreed the found solutions for binary classification and linear regression tasks,
+which worked with text, and layers from some model that worked with images. I had to start somewhere.
+This was an option using keras + tensorflow.
 
-Модель бинарной классификации:
+Binary classification model:
 ```py
 inputs = keras.Input(shape=(self.image_width, self.image_width, 3))
 x = tf.keras.layers.Conv2D(filters=32, kernel_size=5, activation='relu')(inputs)
@@ -156,7 +159,8 @@ Trainable params: 209,954
 Non-trainable params: 640
 _________________________________________________________________
 ```
-Регрессионная модель:
+
+Regression model:
 ```
 inputs = keras.Input(shape=(self.image_width, self.image_width, 3))
 
@@ -185,23 +189,22 @@ Trainable params: 22,176,001
 Non-trainable params: 224
 _________________________________________________________________
 ```
-
-### Подключение моделей к редактору датасета
-Обучение было успешно запущено на сете из 90 изображений (10 использовались для валидации). На выходе модели сохранялись в формате `h5`.
-Размер их получился следующим:
+### Connecting the Models to the Dataset Editor
+Training was successfully launched on a network of 90 images (10 were used for validation). The models were saved in `h5` format.
+Their sizes were as follows:
 ```
 furniture_score.h5 - 32.8MB
 is_photo_relevant.h5 - 1.76MB
 is_renovation_exists.h5 - 1.76MB
 ```
-Теперь нужно было подключить модели к редактору датасета.
-Для использования их в .NET была взята библиотека [Keras.NET](https://github.com/SciSharp/Keras.NET).
-Этот пакет позволял описывать модели, используя Keras в .NET, а также выполнять их запуск. Это не очень эффективно, но избавляло от
-необходимости разбираться с Python WEB приложениями и их деплоем.
+Now the models needed to be connected to the dataset editor.
+To use them in .NET, the [Keras.NET](https://github.com/SciSharp/Keras.NET) library was taken.
+This package allowed describing models using Keras in .NET, as well as running them. It wasn't very efficient but saved
+from the need to figure out Python WEB applications and their deployment.
 
-Запуск модели в .NET требовал передачи объекта типа `NdArray` в качестве параметра (аналог numpy array). Однако библиотека 
-позволяла получить такой объект только передав в специальную утилиту путь к файлу на диске. Существующий массив
-байт конвертировать в `NdArray` было невозможно. Из-за этого код запуска модели выглядел так:
+Running a model in .NET required passing an object of type `NdArray` as a parameter (an analog of numpy array). However,
+the library only allowed getting such an object by passing a file path on disk to a special utility. Converting an
+existing byte array to `NdArray` was impossible. So, the model execution code looked as follows:
 ```csharp
 var tempFileName = $"{Guid.NewGuid()}.temp";
 File.WriteAllBytes(tempFileName, imageBytes);
@@ -214,91 +217,94 @@ var ndArray = ImageUtil.ImageToArray(image) / maxPixelValue;
 var model = BaseModel.LoadModel(path);
 model.Predict(ndArray);
 ```
-Код заработал. А значит вскоре в интерфейсе разметки датасета появилась возможность видеть, что на данный момент
-думает модель о каждом из изображений. Пока результаты были больше похоже на случайные. Но разметка датасета продолжалась.
+The code worked. This meant that soon in the dataset labeling interface, it would be possible to see what the model currently
+thinks about each image. For now, the results looked more like random ones. But dataset labeling continued.
 
-### Проблемы с качеством
-Вскоре стало заметно, что очень тяжело объективно ставить оценку от 0 до 1 для каждой фотографии. Значения 0.85 и 0.8 были очень
-близки, а конечный результат выбирался скорее по настроению. Необходимо было сформулировать какой-то набор критериев для выставления оценки,
-но мотивации что-то выдумывать не было, ведь пришлось бы заново просматривать уже размеченный датасет.
-Хотелось скорее увидеть результат в работе, пусть и неидеальный. Было решено продолжить разметку на основе субъективных
-ощущений и оставить все проблемы с качеством на потом.
+### Quality Issues
+Soon it became noticeable that it was challenging to objectively assign a rating from 0 to 1 for each photo. Values
+of 0.85 and 0.8 were very close, and the final result was more chosen based on mood. It was necessary to formulate a
+set of criteria for assigning a rating, but there was no motivation to come up with something, as it would
+require re-viewing the already labeled dataset. I wanted to see the results in action sooner, even if they are not ideal.
+It was decided to continue labeling based on subjective feelings and leave all quality problems for later.
 
-Метрики моделей постепенно улучшались, но прогрессия остановилась на ~500 изображениях. Были попытки взять готовую модель
-и сделать дообучение. Но это только ухудшало результаты (возможно, ввиду отсутствия опыта).
-Были попытки изменить количество слоев, параметров, функции активации, увеличить датасет. Каких-то значимых изменений это
-не приносило.
+The models' metrics gradually improved, but progress stopped at ~500 images. There were attempts to take a ready-made model
+and fine-tune it. But this only worsened the results (likely due to lack of experience).
+There were attempts to change the number of layers, parameters, activation functions, increase the dataset. This didn't bring
+any significant changes.
 
-При увеличении количества параметров, модели явно уходили в переобучение. При этом больший размер датасета, всякого рода
-случайные повороты и масштабирование изображений, добавление слоев Dropout ситуацию кардинально не меняли.
-В итоге я остановился на следующих результатах при датасете в ~2к изображений:
-1. Квартира ли на фото, точность предсказания (val_auc) ~ 0.92
-2. Есть ли ремонт, точность предсказания (val_auc) ~ 0.95
-3. Определение уровня ремонта, средняя ошибка (val_mae) ~0.17
+When increasing the number of parameters, models clearly went into overfitting. Meanwhile, a larger dataset size, all sorts of
+random rotations and scaling of images, adding Dropout layers did not radically change the situation.
+In the end, I settled on the following results with a dataset of ~2k images:
+1. Is it an apartment in the photo, prediction accuracy (val_auc) ~ 0.92
+2. Is there renovation, prediction accuracy (val_auc) ~ 0.95
+3. Determining renovation level, average error (val_mae) ~0.17
 
-## Создание приложения
-### Первый план
-Настало время писать приложение. Закапываться в проектирование интерфейсов не хотелось и для старта было решено создать обычного
-Telegram бота. Пользователь сможет зайти в его настройки, выбрать параметры интересующих объявлений. А бот будет уведомлять о 
-новых объявлениях, что попали под заданные параметры.
+## Creating the Application
+### First Plan
+It was time to write the application. I didn't want to delve into interface design, so it was decided to start by creating an ordinary
+Telegram bot. The user could go into its settings and choose parameters for interesting listings. And the bot would notify about
+new listings that matched the set parameters.
 
-Предполагался следующий набор сервисов:
-1. **CrawlingHost**: данный сервис будет находить новые объявления и складывать их в локальную базу, получив некоторую
-оценку ремонта перед сохранением.
-2. **TelegramApiHost**: в данный хост летят запросы от бота в Telegram, в котором можно настроить уведомления о новых
-объявлениях.
-3. **WorkerHost**: периодически запускается, делает выборки объявлений и отправляет их пользователям.
+The following set of services was envisioned:
+1. **CrawlingHost:** This service would find new listings and put them in the local database, having got some
+renovation rating before saving.
+2. **TelegramApiHost:** Requests from the Telegram bot would go to this host, where notifications about new
+listings could be configured.
+3. **WorkerHost:** Periodically launched, made selections of listings, and sent them to users.
 
-### Написание краулера
-Чтобы собирать актуальные объявления, предполагалась следующая последовательность:
-1. На каждом из сайтов необходимо было получить статичную ссылку на список объявлений, отсортированных по дате размещения,
-начиная с самых новых. Обычно в ссылках был параметр - номер страницы. Его необходимо было бы менять при пагинации.
-2. При запуске краулера, нужно было собрать все объявления со страницы. Если находилось объявление, которое уже сохранено в базе с 
-той же датой обновления, считалось, что парсер добрался до ранее сохраненных объявлений.
-В таком случае процесс можно нужно останавливать и ждать следующего запуска.
-3. Также при сборе данных необходимо было исключить проблему с race condition. Это ситуация, когда во время парсинга кто-то
-выкладывал новое объявление. Из-за этого при переходе на следующую страницу, краулер мог увидеть объявление, только
-что собранное на предыдущей странице.  
-Чтобы такие ситуации не останавливали процесс, пункт 2 был доработан, введением понятия "crawling session". В
-рамках каждой сессии собирался массив идентификаторов встреченных объявлений. Если загруженное объявление находилось в
-списке обработанных в данной сессии, то оно уже не останавливало процесс при повторной встрече.
-4. Также предусматривался максимальный порог "старости" объявления. Например, если какому-то из найденных 
-объявлений было уже более месяца, сессию парсинга нужно было останавливать. Без этого при первом запуске краулер пытался
-бы перебрать все объявления площадки.
 
-Само по себе написание краулера не было сложным. Он был реализован как фоновая задача - BackgroundJob, который включался
-раз в 4 часа и собирал все, что появилось с момента последнего запуска. 
-Сам биндинг разметки сайта к C# объекту был сделан через библиотеку `Laraue.Crawling`, которая 
-позволяла определить схему, избегая лишнего спагетти-кода:
+### Writing the Crawler
+To collect current listings, the following sequence was planned:
+
+1. On each site, it was necessary to get a static link to a list of listings, sorted by posting date,
+starting with the newest. Usually, links had a parameter - page number. This would need to be changed during pagination.
+2. When starting the crawler, all listings from the page needed to be collected. If a listing was found that was already
+saved in the database with the same update date, it was considered that the parser had reached previously saved listings.
+In this case, the process needed to be stopped and wait for the next launch.
+3. Also, during data collection, it was necessary to exclude the problem of race condition. This is when, during parsing, someone
+posted a new listing. So, when moving to the next page, the crawler could see a listing just collected on the previous page.
+To prevent such situations from stopping the process, step 2 was refined by introducing the concept of a "crawling session." In
+each session, an array of encountered listing IDs was collected. If a loaded listing was found in the
+list processed in this session, then it no longer stopped the process when encountered again.
+4. A maximum "age" threshold for listings was also provided. For example, if any found
+listing was already more than a month old, the parsing session needed to be stopped. Without this, on the first run,
+the crawler would try to go through all the platform's listings.
+
+Writing the crawler itself wasn't difficult. It was implemented as a background task—a BackgroundJob that started
+every 4 hours and collected everything that appeared since the last run.
+The binding of the site markup to a C# object was done via the [Laraue.Crawling](/blog/projects/crawler) library, which
+allowed defining a schema, avoiding extra spaghetti code:
 ```csharp
 public sealed class CianCrawlingSchema : CompiledDocumentSchema<IElementHandle, HtmlSelector, CrawlingResult>, ICianCrawlingSchema
 {
     private static BindObjectExpression<IElementHandle, HtmlSelector> GetSchema(ILogger logger)
     {
         return new PuppeterSharpSchemaBuilder<CrawlingResult>()
-            .HasArrayProperty(x => x.Advertisements, "article", pageBuilder =>
-            {
-                pageBuilder.HasProperty(
-                    x => x.ShortDescription,
-                    "div[data-name=Description]");
-                pageBuilder.HasProperty(
-                    x => x.UpdatedAt,
-                    builder => builder
-                        .UseSelector("div[data-name=TimeLabel] div:nth-child(2)")
-                        .Map(TryParseDate));
-                // ...
-            })
-            .Build()
-            .BindingExpression;
+        .HasArrayProperty(x => x.Advertisements, "article", pageBuilder =>
+        {
+            pageBuilder.HasProperty(
+                x => x.ShortDescription,
+                "div[data-name=Description]");
+            pageBuilder.HasProperty(
+                x => x.UpdatedAt,
+                builder => builder
+                    .UseSelector("div[data-name=TimeLabel] div:nth-child(2)")
+                    .Map(TryParseDate));
+            // ...
+        })
+        .Build()
+        .BindingExpression;
     }
 }
 ```
-Далее через headless браузер с помощью библиотеки `PuppeterSharp` открывалась одна из страниц ресурса, и данные из верстки
-биндились на модель, согласно схеме.
 
-Чтобы не бороться с защитой от ботов, было решено просто сократить запросы до такого уровня, когда защита не будет срабатывать.
-Опытным путем было получено значение в один запрос в минуту. Этого хватало: поток объявлений на самом деле не велик.
-В результате этого шага были написаны схемы для Циана и Авито, каждая из которых возвращала результат согласно контракту: 
+Next, a headless browser using the `PuppeterSharp` library would open one of the resource's pages, and data from the markup
+was bound to the model according to the schema.
+
+To avoid fighting bot protection, it was decided to simply reduce requests to a level where protection wouldn't trigger.
+Empirically, a value of one request per minute was obtained. This was enough: the flow of listings isn't high.
+As a result of this step, schemas for Cian and Avito were written, each returning result according to the contract:
+
 ```csharp
 public sealed class CrawlingResult
 {
@@ -322,24 +328,24 @@ public sealed class Advertisement
     public FlatAddress? FlatAddress { get; init; }
 }
 ```
-Перед сохранением результата в базу, необходимо было проставить оценку ремонта для квартиры. Для этого отдельные оценки
-изображений должны были свестись в одну общую. Желательно было учесть и несовершенство моделей. План был следующим:
-1. Необходимо получить оценку для всех фотографий в объявлении.
-2. Если найдено менее 3-х релевантных изображений, ставится общая оценка 0, чтобы объявление в дальнейшем не участвовало в поиске.
-3. Если найдены изображения с черновой отделкой - общая оценка 0.
-4. Для остальных изображений находится медиана, чтобы избежать влияния изображений с резким отклонением от среднего.
-5. Здесь также появился первый концепт параметра идеальность - чем больше у квартир проблем, тем меньше ее идеальность.
-К проблемам относятся плохой ремонт, долгое расстояние до метро, не лучшие станции метро, и так далее. В итоге для идеальности
-получалась формула:
+
+Before saving the result to the database, it was necessary to assign a renovation rating for the apartment. For this, individual ratings
+of images had to be combined into one overall rating. It was also desirable to account for model imperfections. The plan was as follows:
+1. It was necessary to get a rating for all photos in the listing.
+2. If fewer than three relevant images were found, the overall rating was set to 0, so the listing wouldn't participate in the search later.
+3. If images with rough finishes were found—overall rating 0.
+4. For the remaining images, the median was found to avoid the influence of images with sharp deviations from the average.
+5. Here also appeared the first concept of an "ideality" parameter - the more problems an apartment has, the lower its ideality.
+Problems include poor renovation, long distance to the metro, not the best metro stations, and so on. In the end, the formula for ideality was:
+
 ```csharp
 var totalFine = transportStopFine + transportDistanceFine + renovationRatingFine;
-var ideality = 1 - totalFine; // Для высчитывания идельности вычитаем из единицы все штрафы
+var ideality = 1 - totalFine;
 ```
+The database began to fill with data. All that remained was to display it.
 
-База начала наполняться данными. Их оставалось вывести.
-
-### Интерфейс бота в Telegram
-По задумке, пользователь мог создать себе некоторые "выборки" (Selection): 
+## Telegram Bot Interface
+According to the idea, the user could create some "selections" (Selection):
 ```csharp
 public sealed record Selection
 {
@@ -367,140 +373,142 @@ public sealed record Selection
     public int PerPage { get; set; }
 }
 ```
-![Окно настройки выборки](selection-setup.png "selection setup")
+![The window with selection setup](/images/blog/articles/flat-ranking/selection-setup.png "selection setup")
 
-И в рамках созданных выборок просмотреть объявления:
 
-![Окно просмотра объявлений из выборки](selection-result.png "selection result")
+And within the created selections, view listings:
 
-Процесс вывода объявлений в телеграмме подробно описывать не буду. Там достаточно много кода, но все сводится к тому,
-чтобы достать записи из БД по фильтрам из выборки и отрисовать их в интерфейсе. В любом случае, код будет доступен в репозитории.
+![The window shows advertisements](/images/blog/articles/flat-ranking/selection-result.png "selection result")
 
-С этого момента в телеграм можно было просматривать собранные с разных платформ объявления.
+
+I won't describe the process of displaying listings in Telegram in detail. There's quite a lot of code there, but it all boils down to
+retrieving records from the DB according to the selection filters and rendering them in the interface. In any case, the code will be available in the repository.
+
+From this point on, listings collected from different platforms could be viewed in Telegram.
 
 ### WorkerHost
-Оставалось доработать систему, добавив автоотправку новых объявлений по выборкам. Работало это в два этапа:
-1. Отбирались те выборки, данные по которым пришло время отправлять. Но это влиял параметр "интервал отправки", 
-установленный пользователем.
-2. Происходило формирование запроса к базе для выборки новых данных. Для этого отбирались объявления, удовлетворяющие
-условию фильтров выборки и в которых поле `crawled_at` было больше, чем дата последней автоотправки по этой выборке.
+It remained to refine the system by adding automatic sending of new listings according to selections. It worked in two stages:
 
-Пример уведомления:
+1. Those selections were selected for which it was time to send data. This was influenced by the "sending interval" parameter set by the user.
+2. A database query was formed to select new data. For this, listings were selected that met the selection filter conditions and where the crawled_at field was greater than the date of the last auto-send for that selection.
 
-![Уведомление о новых объявлениях](selection-notification.png "selection notification")
+Notification example:
 
-Все сервисы теперь были реализованы. Можно было запускать их и наблюдать за результатами.
 
-## Полученные результаты и покупка квартиры
-Хосты приложения были развернуты на купленный VPS c 1GB RAM под linux. Не осталось точных данных, сколько RAM и CPU тратилось 
-на распознавание одного изображения, но цифры были вполне удовлетворительные для корректной работы системы. 
+![Notification about new advertisements](/images/blog/articles/flat-ranking/selection-notification.png "selection notification")
 
-Были созданы две выборки. Первая была настроена на локации, что были нам наиболее интересны.
-Вторая выборка распространялась на весь Санкт-Петербург, искала квартиры с хорошим ремонтом и расположенным рядом 
-метро и ценой за квадрат ниже рынка. Наблюдения начались.
 
-Система работала. Уведомления приходили. Оценка ремонта, в основном отсеивала неприемлемые варианты. Но
-действительно интересных приложений было мало. Каждые 4 часа приходило новое уведомление (или не приходило, если в выборку 
-ничего не попадало) и необходимо было смотреть, что нашла система. Всегда находились какие-то минусы, делающие варианты
-не подходящими. Через пару недель этот процесс поднадоел - постоянно нужно было идти и просматривать объявления.
-Шаг уведомления был изменен с четырех до двенадцати часов. Правда, в таком варианте был риск упустить действительно хорошие
-предложения.
+All services were now implemented. They could be launched and the results observed.
 
-В итоге, судьба покупки была решена в один из дней за пару часов. Жена, просматривая Циан, увидела новое объявление, подходящее
-нам по всем характеристикам в хорошей локации. Через час объект был просмотрен, а на следующее утро заключена предварительная сделка.
-Через месяц мы уже переезжали.
+## Results Obtained and Apartment Purchase
+The application hosts were deployed on a purchased VPS with 1GB RAM under Linux. There is no exact data left on how much RAM and CPU
+was spent on recognizing one image, but the numbers were quite satisfactory for the system to work correctly.
 
-Это все было хорошо, но мотивация развития приложения сильно снизилась. Было понятно, что нужно как-то улучшать
-точность распознавания, но знаний для этого не хватало. Нужно было добиваться уменьшения фонового шума от бота - ведь 
-не так страшно пропустить что-то важное, как получать постоянно что-то нерелевантное. Одна из новых идей была - смотреть
-на наличие слова "срочно" в объявлении - на таких объявлениях часто есть обоснованные скидки.
+Two selections were created. The first was configured for locations most interesting to us.
+The second selection covered all of St. Petersburg, looking for apartments with good renovation, located near
+a metro station, and with a price per square meter below the market. Observations began.
 
-Стало неясно, для кого сейчас делается эта разработка. Силы уходили на переезд, наступило лето - пора прогулок -
-постепенно интерес к разработке угас.
+The system worked. Notifications came. The renovation rating mostly filtered out unacceptable options. But
+fascinating applications were few. Every 4 hours a new notification arrived (or didn't arrive if nothing
+fell into the selection), and it was necessary to see what the system found. There were always some minuses making the options
+unsuitable. After a couple of weeks, this process became tedious—constantly having to go and view listings.
+The notification step was changed from four to twelve hours. However, in this version, there was a risk of missing perfect
+offers.
 
-## Реинкарнация проекта
-### Откуда взялась новая идея
-2024 и 2025 год шли под девизом - LLM повсюду, что провоцировало некоторое отторжение от этой тематики. Каждый второй
-теперь рассказывал, как ИИ консультирует его по совершенно разнообразным вопросам, а CEO компаний объявляли наперебой,
-что скоро мир изменится, и множество профессий вымрет. 
+In the end, the purchase was decided in one day within a couple of hours. My wife, while browsing Cian, saw a new listing suitable
+for us in all characteristics in a good location. Within an hour, the property was viewed, and the preliminary deal
+was concluded the next morning. A month later, we were already moving.
 
-У меня же появилось мнение, что если начать использовать LLM в своей работе, то это в перспективе 
-плохо скажется на способности писать код. И если вдруг в будущем окажется, что LLM не получается сделать рентабельным
-и их отключат (или же серьезно поднимут стоимость использования), то в выигрыше останутся те, кто не разучился писать код
-самостоятельно.
+This was all good, but motivation to develop the application greatly decreased. It was clear that the
+recognition accuracy needed to be improved somehow, but there wasn't enough knowledge for that. It was necessary to
+reduce the background noise from the bot—because it's not so scary to miss something important, as it is to constantly
+receive something irrelevant. One new idea was to look for the word "urgent" in the listing - such listings often have justified discounts.
 
-Правда вечно избегать использования LLM мне не удалось. С каждым месяцем нарастало ощущение деградации поисковых систем.
-Возможно, это были субъективные ощущения, но ответы на вопросы найти становилось все труднее.
+It became unclear for whom this development was currently being done. Energy was spent on moving, summer came - time for walks -
+interest in development gradually faded.
 
-Я опросил знакомых о том, кто что использует. Программисты в основном сидели в DeepSeek, остальные в каких-то
-сомнительных телеграм ботах с названиями вида "Free Chat GPT 4 Bot".
+## Project Reincarnation
+### Where the New Idea Came From
+2024 and 2025 were under the slogan—LLM everywhere, which provoked some rejection of this topic. Every second person
+now talked about how AI consults them on completely diverse questions, and CEOs of companies announced one after another
+that the world would soon change, and many professions would die out.
 
-Мне же повезло наткнуться на проект Ollama, который позволял запускать Open Source модели на локальном
-компьютере. И этот концепт очень понравился, ведь в таком случае все данные всегда были на локальном компьютере.
-Это как энциклопедия всего интернета в виде одного файла - и при этом никакой рекламы. Кроме того, если модели как-то
-и будут меняться со временем и деградировать, то твоя локальная останется такой же, как и была.
+I, however, had the opinion that starting to use LLM in work would, in perspective,
+negatively affect the ability to write code. If LLMs become unavailable or prohibitively expensive, those who can still
+code independently will be best positioned to adapt and thrive.
 
-Были перепробованы много моделей, в итоге на постоянном использовании остались две: `qwen3-coder:30b` для вопросов по 
-программированию и `gemma3:12b` для всего остального. Логичным следующим вопросом было - а сможет ли LLM делать оценку ремонта
-по фотографии, и каковы будут результаты?
+However, I couldn't avoid using LLMs forever. Every month, the feeling of search engine degradation grew.
+Perhaps these were subjective feelings, but finding answers to questions was becoming more and more difficult.
 
-### Эксперименты с Ollama
-Первой идеей было просто спросить у одной из моделей, что она видит на фото, передав ей url изображения с Циана. 
-К удивлению, модель подробно расписала, что изображено на фото, практически полное совпадение. Был отправлен другой url - снова подробное описание квартиры,
-но почти ничего не сошлось.
+I asked acquaintances about what they use. Programmers mostly used DeepSeek, others used some
+dubious Telegram bots with names like "Free ChatGPT 4 Bot."
 
-Оказалось, что модель даже не умела загружать изображение по url, хотя ответ и возвращался всегда. На основании того, что в адресе 
-был "cian", она просто предполагала, что на вход получила фото квартиры, и генерировала какой-то случайный результат.
+I was lucky to come across the Ollama project, which allowed running Open Source models locally.
+And I really liked this concept, as in this case all data was always on the local computer.
+It's like an encyclopedia of the entire internet in the form of one file—and with no ads. Moreover, if models somehow
+change over time and degrade, your local one will remain as it was.
 
-В итоге я изучил документацию и обнаружил, что с изображениями может работать только часть моделей. И передавать их нужно
-отдельным свойством в виде base64 строки. Кроме того, оказалось, что Ollama поддерживает функцию structured output, что позволяло задать
-контракт объекта, который модель должна вернуть по сделанному запросу. 
+Many models were tried, in the end, two remained in constant use: `qwen3-coder:30b` for programming questions
+and `gemma3:12b` for everything else. The logical next question was - could an LLM evaluate renovation
+from a photo, and what would the results be?
 
-В итоге был составлен такой запрос, который просил у модели вернуть данные по фото в нужном формате:
+### Experiments with Ollama
+The first idea was to simply ask one of the models what it sees in the photo, giving it a URL of an image from Cian.
+To my surprise, the model described in detail what was in the photo, almost a complete match. Another URL was sent—again
+a detailed description of the apartment, but almost nothing matched.
+
+It turned out that the model couldn't even load an image by URL, although it always returned an answer. Based on the
+fact that the address contained "cian," it simply assumed it received a photo of an apartment and generated some random results.
+
+In the end, I studied the documentation and discovered that only some models could work with images. And they needed
+to be passed as a separate property in the form of a base64 string. 
+Furthermore, it turned out that Ollama supported the `structured output` function, which allowed specifying
+the contract of the object the model should return for a given query.
+
+As a result, such a request was composed that asked the model to return data on the photo in the desired format:
 ```json
 {
-  "model" : "qwen2.5vl:3b",
-  "prompt" : "Analyze this image and determine if it depicts a flat interior...",
-  "stream" : false,
-  "images" : ["base64ImageString"],
-  "format" : {
-    "properties" : {
-      "RenovationRating" : {
-        "type" : [ "number" ]
-      },
-      "Tags" : {
-        "items" : {
-          "type" : [ "string" ]
+    "model": "qwen2.5vl:3b",
+    "prompt": "Analyze this image and determine if it depicts a flat interior...",
+    "stream": false,
+    "images": ["base64ImageString"],
+    "format": {
+        "properties": {
+            "RenovationRating": {
+                "type": ["number"]
+            },
+            "Tags": {
+                "items": {
+                    "type": ["string"]
+                },
+                "type": ["array"]
+            },
+            "Description": {
+                "type": ["string"]
+            }
         },
-        "type" : [ "array" ]
-      },
-      "Description" : {
-        "type" : [ "string" ]
-      }
-    },
-    "type" : [ "object" ]
-  }
+        "type": ["object"]
+    }
 }
 ```
-В промпте передавался длинный набор подсказок, чтобы модель понимала, что должно увеличивать оценку, а что - уменьшать.
-Например, использование дорогих материалов - это плюс, а торчащие коммуникации - минус. Кроме подсказок указывалось, 
-что представляет каждое из запрошенных свойств, а так же описывались правила, когда модель должна считать изображение нерелевантным 
-и возвращать нуль. Диапазоном оценки ремонта стало целое число 0-10, вместо плавающего 0-1, так как выяснилось, 
-что модели меньше галлюцинировали, работая с целыми числами.
+A long set of hints was passed in the prompt, so the model understood what should increase the rating and what should decrease it.
+For example, the use of expensive materials is a plus, while exposed utilities is a minus. In addition to hints, it was specified
+what each of the requested properties represented, as well as rules for when the model should consider an image irrelevant
+and return null. The renovation rating range became an integer 0–10, instead of a floating 0–1, as it was found that
+models hallucinated less when working with integers.
 
-Ответ выглядел так:
+The response looked this way:
 ```json
 {
     "model": "qwen2.5vl:3b",
     "response": "{\"Tags\": [\"Empty room\",\"No furniture\",\"Unfinished walls\",\"No design solutions\",\"No color scheme\"],\"Description\": \"The image shows an empty room with unfinished walls and no furniture. The room appears to be in the process of being renovated, as the walls are not yet painted and there are no visible design solutions or color schemes. The lack of furniture and the unfinished state of the walls suggest that the flat requires significant renovation before it can be lived in.\"}"
 }
 ```
+The rating was indeed performed. The only question was how well and which model had the best results.
 
-Оценка действительно выполнялась. Вопрос был только в том, насколько хорошо и какая из моделей имеет лучшие результаты.
-
-### Выбор новой модели
-Было решено сделать небольшой тест: выбрать 20 разнообразных изображений и получить результаты оценки от каждой из моделей. 
-Сам тест выглядел так:
+### Choosing a New Model
+It was decided to do a small test: select 20 diverse images and get rating results from each of the models.
+The test itself looked like this:
 ```csharp
 [Theory]
 [InlineData("qwen2.5vl:7b")]
@@ -516,22 +524,22 @@ public Task ModelsTest(string model)
     return RunTest(model, Prompts.Prompt1);
 }
 ```
-Тело теста содержало последовательный запуск на модели распознавания для каждого из предопределённых изображений и 
-сравнение полученных результатов с эталоном:
+The test body contained a sequential launch of recognition on the model for each of the predefined images and
+comparison of the obtained results with a standard:
 ```csharp
 private async Task RunTest(string model, string prompt)
 {
     var errors = new Dictionary<string, Result>();
     foreach (var image in _testImages)
     {
-        var filePath =  "C:\\images\\" + image.Key;
+        var filePath = "C:\\images\\" + image.Key;
         var fileBytes = await File.ReadAllBytesAsync(filePath);
-    
+
         var result = await _predictor.Predict(
             model,
             prompt,
             fileBytes);
-    
+
         errors.Add(image.Key, new Result
         {
             Tags = result.Tags,
@@ -546,7 +554,7 @@ private async Task RunTest(string model, string prompt)
     _outputHelper.WriteLine($"Error > 10%: {(errors.Values.Count(x => x.Diff > 1) / (double)errors.Count):P}");
     _outputHelper.WriteLine($"Error > 20%: {(errors.Values.Count(x => x.Diff > 2) / (double)errors.Count):P}");
     _outputHelper.WriteLine($"Relevant errors: {(errors.Values.Count(x => x.IsRelevant == (x.Excepted != 0)) / (double)errors.Count):P}");
-    
+
     foreach (var error in errors)
     {
         _outputHelper.WriteLine(
@@ -554,7 +562,7 @@ private async Task RunTest(string model, string prompt)
     }
 }
 ```
-Вывод теста:
+Test output:
 ```
 Average error: 1.55
 Error > 10%: 30.00%
@@ -565,86 +573,85 @@ Relevant errors: 25.00%
 2612468865-4.jpg: 5 ex: 0 act: 5 tags: Neutral colors,Simple design,Clean lines,Functional layout,Needs minor updates
 ...
 ```
-Интересно было понимать не только среднюю ошибку, но и то, сколько модель допускает грубых ошибок, когда, например,
-оценивала ремонт там, где вообще не должна была. Кроме того не рассматривались модели, которые требовали много ресурсов 
-или работали долго. В итоге, по соотношению цена-качество победила `qwen2.5vl:7b`. Оценка одного изображения занимала 
-около пяти секунд на RTX4070.
 
-### Улучшения в алгоритме распознавания
-Полученные результаты были явно лучше, чем в самописной модели. Но хотелось понять, что можно еще улучшить.
+It was interesting to understand not only the average error but also how many gross errors the model makes, when, for example,
+it evaluated renovation where it shouldn't have at all. Furthermore, models that required a lot of resources
+or worked slowly were not considered. In the end, the winner in terms of price-quality ratio was `qwen2.5vl:7b`. Evaluating one image took
+about five seconds on an RTX4070.
 
-По выводу теста я заметил, что достаточно много ошибок происходило в изображениях, в которых в принципе было мало информации
-для оценки - какое-нибудь фото пустой стены с картиной. Хотя изображение в целом было релевантным.
+### Improvements in the Recognition Algorithm
+The obtained results were clearly better than the self-written model. But I wanted to understand what else could be improved.
 
-Здесь родилась идея о том, что было бы круто объединить все фотографии и делать оценку всего объявления сразу. Тогда у 
-модели будет больше информации и меньше шансов ошибиться. Это должно и работать быстрее - время работы модели не сильно
-коррелировало с объемом входного файла. А количество распознаваний сокращалась до одного на всю квартиру.
+From the test output, I noticed that quite a few errors occurred in images that had little information in principle
+for evaluation—like a photo of an empty wall with a painting. Although the image was generally relevant.
 
-Алгоритм был прост - все фотографии объявления объединялись в одно длинное и разделялись черными полосами.
-В промпте было дописано о том, что необходимо оценивать переданный коллаж изображений, разделенных черными линиями.
+This gave rise to the idea that it would be cool to combine all photos and evaluate the entire listing at once. Then the
+model would have more information and less chance of making a mistake. This should also work faster - model runtime didn't strongly
+correlate with input file size. And the number of recognitions was reduced to one per entire apartment.
 
-Это сработало - общая оценка выросла. Правда, появилась проблема: модель начинала периодически галлюцинировать 
-и бесконечно генерировать теги. Промпты о том, что возвращать нужно не более 10 тегов, резко снижали результат оценки
-квартиры и не всегда спасали от галлюцинаций.
+The algorithm was simple—all listing photos were combined into one long image separated by black stripes.
+It was added to the prompt that it was necessary to evaluate the passed collage of images, separated by black lines.
 
-Помог в итоге магический промпт, преложенный самой же моделью  - `return exactly no more than 10 items`. Это убрало
-галлюцинации, не сильно снизив точность. 
+This worked—the overall rating increased. However, a problem appeared: the model began to periodically hallucinate
+and endlessly generate tags. Prompts saying to return no more than 10 tags sharply reduced the apartment rating result
+and didn't always save from hallucinations.
 
-В целом вся эта разработка через промпты, конечно, была такой себе. Абсолютно никакой детерминированности, любые изменения
-могли резко ухудшить результат. К счастью, написанные тесты позволяли хоть как-то видеть общую картину и не делать
-совсем уж неправильных решений.
+In the end, a magical prompt suggested by the model itself helped `return exactly no more than 10 items`. This removed
+hallucination without significantly reducing accuracy.
 
-### Внедрение в проект
-Новое ядро системы для распознавания изображений было готово к внедрению в приложение. Однако теперь
-запуск модели требовал мощную видеокарту, а сервер с GPU арендовать было дорого. Было решено, что домашний компьютер 
-займется всей тяжелой работой. Для этого проект требовалось доработать.
-1. Вся работа, что требовала видеокарты, была вынесена в отдельный хост - GpuWorkerHost. Парсинг был отрефакторен и
-теперь не пытался получить оценку о ремонте сразу, а просто складывал свои результаты в базу. Затем уже GpuWorkerHost просматривал
-объявления с несделанной оценкой, выполнял ее и обновлял результаты в БД.
-2. Был добавлен ApiHost - захотелось вывести результаты красиво на нормальном фронтенде.
-3. Появилась новая работа у WorkerHost - ему необходимо было просматривать объявления, что были оценены и проставлять им 
-флаг - готово для API. Кроме того, в данный хост были добавлены задачи по периодическому удалению из базы тех изображений,
-что перестали быть доступны и по помечанию флага об удалении для тех объявлений, у которых не осталось ни одного активного
-изображения.
+In general, all this development through prompts was, of course, so-so. Absolutely no determinism, any changes
+could sharply worsen the result. Fortunately, the written tests allowed at least seeing the overall picture and not making
+completely wrong decisions.
 
-### Разработка фронтенда
-Мне всегда тяжело было придумывать интерфейсы. Поэтому запросил несколько разных версток под эту задачу у `qwen3-coder:30b`:
+## Integration into the Project
+The new core system for image recognition was ready for integration into the application. However, now
+running the model required a powerful video card, and renting a server with a GPU was expensive. It was decided that the home computer
+would handle all the heavy lifting. For this, the project needed to be refined.
 
-![Варианты интерфейса](frontend-examples.png "vibe-coded interface")
+1. All work requiring a video card was moved to a separate host - GpuWorkerHost. Parsing was refactored and
+now didn't try to get the renovation rating immediately, but simply put its results in the database. Then GpuWorkerHost would look at
+listings with unassessed ratings, perform the assessment, and update the results in the DB.
+2. An ApiHost was added—I wanted to display the results nicely on a normal frontend.
+3. WorkerHost got a new job—it needed to look at listings that were rated and set a flag for them—ready for API.
+Moreover, tasks for periodically deleting from the database those images
+that were no longer available and for marking a deletion flag for those listings that no longer had a single active
+image were added to this host.
 
-Далее эти верстки были вручную объединены и доработаны напильником.
+Frontend Development
+I've always found it hard to come up with interfaces. Therefore, I requested several different layouts for this task from `qwen3-coder:30b`:
+![Generated interfaces](/images/blog/articles/flat-ranking/ai-generated-interface.png "vibe-coded interface")
 
-### Деплой хостов
-Было решено деплоить на сервер только ApiHost, чтобы не тратиться лишний раз на вычислительные ресурсы.
-Все остальные хосты не требовали постоянного запуска. Поэтому их можно было запустить в любое время локально,
-чтобы они собрали новые объявления, сделали им оценку и сложили результаты в базу.
+These layouts were then manually combined and refined with a file.
 
-### Результат и дальнейшие планы
-Изначальный план - отсортировать квартиры по самым выгодным предложениям до сих пор был не выполнен. Но был сделан шаг
-в этом направлении: решено искать квартиры, расположенные рядом на одной улице, и показывать, 
-выгодная ли это сделка, сравнивая их цены и ремонт. Но такое работало только когда объявлений на улице много и было с чем 
-сравнивать. По-правильному необходимо использовать некоторую геобазу, благодаря которой можно будет делать сравнение именно по ближайшим домам, 
-а не только тем, что расположены на одной улице. 
+## Host Deployment
+It was decided to deploy only the ApiHost to the server, to avoid extra spending on computational resources.
+All other hosts didn't require constant running. Therefore, they could be launched locally at any time
+so they would collect new listings, rate them, and put the results in the database.
 
-![Итоговый результат](result.png "current interface")
+## Results and Plans
+The initial plan - to sort apartments by the most profitable offers - still wasn't fulfilled. But a step
+was taken in that direction: it was decided to find apartments located nearby on the same street and show
+if it's a profitable deal by comparing their prices and renovation. But this only worked when there were many listings on the street, and there was something to
+compare with. Properly, it's necessary to use a geo-database, thanks to which comparison could be made precisely by the nearest buildings,
+not only those on the same street.
 
-В голове крутились дальнейшие улучшения:
-1. Сравнивать заявленные аттрибуты с текстом объявления. Часто пользователи пишут в характеристиках одно, а в описании 
-совсем другое - шаг, чтобы привлечь внимание. Такое желательно сразу выкидывать с выдачи. 
-2. Загрузить базы домов, идущих под реновацию, и снижать итоговую оценку или показывать уведомления об опасности сделки.
-3. Объединять дубликаты по параметрам, очищая выборки.
-4. Искать квартиры не только для покупки, но и для аренды.
-5. Сделать так называемую дистилляцию модели. Это когда маленькую модель обучают на результатах большой. Тогда 
-GpuHost оказался бы на сервере и его не приходилось бы запускать на локальном компьютере.
+![The final interface](/images/blog/articles/flat-ranking/the-system-interface.png "current interface")
 
-Идеи появлялись одна за другой, но появилась проблема - кажется, я снова устал разрабатывать данный проект. Сейчас его 
-никак не получается применить, покупок квартиры не предвидится. Тем не менее он выглядит
-интересным и хочется, чтобы знания, накопленные в нем, мог кто-нибудь использовать. Я выложил исходники на
-[Github](https://github.com/win7user10/Laraue.Apps.RealEstate), если вдруг появится желание подробнее ознакомиться с
-реализацией всего функционала. В репозитории отсутствует Frontend, его придется при необходимости писать самостоятельно. 
+Further improvements were swirling in my head:
 
-Ну а если хочется просто посмотреть полученный результат, он доступен [здесь](https://laraue.com/crawled-apartments).
-Изначально проект делался под Санкт-Петербург, поэтому там больше всего данных. Москву и Волгоград я добавлял позднее,
-чтобы убедиться, что проект можно масштабировать.
+1. Compare stated attributes with the listing text. Often users write one thing in the characteristics and something completely different in the description—a trick to attract attention. Such listings should preferably be immediately thrown out of the results.
+2. Load databases of buildings scheduled for renovation, and reduce the final rating or show warnings about deal danger.
+3. Merge duplicates by parameters, cleaning up selections.
+4. Search for apartments not only for purchase but also for rent.
+5. Do so-called model distillation. This is when a small model is trained on the results of a large one. Then
+6. GpuHost would be on the server and wouldn't have to be run on the local computer.
 
-На этом все, всем спасибо за внимание!
+Ideas kept coming one after another, but a problem appeared—it seems I got tired of developing this project again. Currently, it
+couldn't be applied in any way; no apartment purchases were foreseen. Nevertheless, it looks
+interesting and I want someone to be able to use the knowledge accumulated in it. I posted the source code on
+GitHub, in case anyone wants to familiarize themselves with the
+implementation of all the functionality in more detail. The Frontend is missing from the repository; it will need to be written independently if necessary.
+
+Well, if you just want to see the obtained result, it's available [here](/crawled-apartments).
+The project was initially made for St. Petersburg, so there's the most data there. Moscow and Volgograd were added later,
+to make sure the project could be scaled.
